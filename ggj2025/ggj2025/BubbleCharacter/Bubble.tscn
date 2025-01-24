@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://dkbvnd0gm27f5"]
+
+[ext_resource type="Script" path="res://Root/sprite_2d.gd" id="1_rj0dg"]
+[ext_resource type="Shader" path="res://Root/bubble.gdshader" id="2_su7k3"]
+[ext_resource type="Texture2D" uid="uid://qdaajr3fdeo0" path="res://icon.svg" id="3_efdam"]
+
+[sub_resource type="Gradient" id="Gradient_b2ufb"]
+colors = PackedColorArray(0.976471, 0.490196, 0.427451, 1, 0.976471, 0.490196, 0.427451, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_hpfev"]
+gradient = SubResource("Gradient_b2ufb")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_afyix"]
+shader = ExtResource("2_su7k3")
+shader_parameter/mouse_position = null
+shader_parameter/poke_strength = 0.3
+shader_parameter/deformation_radius = 0.563
+
+[node name="Bubble" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 3.50002)
+scale = Vector2(4.49219, 641)
+texture = SubResource("GradientTexture1D_hpfev")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+position = Vector2(-369, -140)
+script = ExtResource("1_rj0dg")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+material = SubResource("ShaderMaterial_afyix")
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("3_efdam")
