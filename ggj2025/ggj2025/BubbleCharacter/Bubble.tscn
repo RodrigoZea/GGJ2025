@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dkbvnd0gm27f5"]
 
-[ext_resource type="Script" path="res://Root/sprite_2d.gd" id="1_rj0dg"]
-[ext_resource type="Shader" path="res://Root/bubble.gdshader" id="2_su7k3"]
+[ext_resource type="Script" path="res://BubbleCharacter/bubble.gd" id="1_rj0dg"]
+[ext_resource type="Shader" path="res://BubbleCharacter/bubble.gdshader" id="2_su7k3"]
 [ext_resource type="Texture2D" uid="uid://qdaajr3fdeo0" path="res://icon.svg" id="3_efdam"]
 
 [sub_resource type="Gradient" id="Gradient_b2ufb"]
