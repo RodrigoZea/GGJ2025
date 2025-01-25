@@ -19,3 +19,9 @@ config/icon="res://icon.svg"
 
 limits/debugger/max_errors_per_second=4000
 limits/debugger/max_warnings_per_second=4000
+
+[display]
+
+window/size/viewport_width=640
+window/size/viewport_height=360
+window/stretch/mode="viewport"

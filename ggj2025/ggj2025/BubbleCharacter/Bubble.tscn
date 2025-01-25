@@ -1,35 +1,34 @@
-[gd_scene load_steps=7 format=3 uid="uid://dkbvnd0gm27f5"]
+[gd_scene load_steps=6 format=3 uid="uid://dkbvnd0gm27f5"]
 
 [ext_resource type="Script" path="res://BubbleCharacter/bubble.gd" id="1_rj0dg"]
-[ext_resource type="Shader" path="res://BubbleCharacter/bubble.gdshader" id="2_su7k3"]
-[ext_resource type="Texture2D" uid="uid://qdaajr3fdeo0" path="res://icon.svg" id="3_efdam"]
+[ext_resource type="Texture2D" uid="uid://baiit73redhoc" path="res://Assets/Sprites/bubble.png" id="3_x1r5e"]
 
-[sub_resource type="Gradient" id="Gradient_b2ufb"]
-colors = PackedColorArray(0.976471, 0.490196, 0.427451, 1, 0.976471, 0.490196, 0.427451, 1)
+[sub_resource type="CircleShape2D" id="CircleShape2D_j25y8"]
+radius = 12.1655
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_hpfev"]
-gradient = SubResource("Gradient_b2ufb")
+[sub_resource type="Animation" id="Animation_qv8gx"]
+resource_name = "death"
+step = 0.2
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_afyix"]
-shader = ExtResource("2_su7k3")
-shader_parameter/mouse_position = null
-shader_parameter/poke_strength = 0.3
-shader_parameter/deformation_radius = 0.563
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q3e0w"]
+_data = {
+"death": SubResource("Animation_qv8gx")
+}
 
-[node name="Bubble" type="Node2D"]
-
-[node name="Camera2D" type="Camera2D" parent="."]
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, 3.50002)
-scale = Vector2(4.49219, 641)
-texture = SubResource("GradientTexture1D_hpfev")
-
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-position = Vector2(-369, -140)
+[node name="Bubble" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_rj0dg")
 
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
-material = SubResource("ShaderMaterial_afyix")
-scale = Vector2(2.5, 2.5)
-texture = ExtResource("3_efdam")
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("3_x1r5e")
+hframes = 2
+vframes = 2
+frame = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_j25y8")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_q3e0w")
+}
