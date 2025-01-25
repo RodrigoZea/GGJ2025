@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://b8d0hx5lcvqcg"]
+
+[ext_resource type="Script" path="res://Rooms/Door.gd" id="1_cpmtg"]
+
+[sub_resource type="Gradient" id="Gradient_yjkrd"]
+offsets = PackedFloat32Array(0, 0.993976)
+colors = PackedColorArray(0, 1, 0, 1, 0, 1, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_nbtbp"]
+gradient = SubResource("Gradient_yjkrd")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x2hjb"]
+size = Vector2(38, 8)
+
+[node name="DoorUp" type="Area2D"]
+script = ExtResource("1_cpmtg")
+
+[node name="DoorSprite" type="Sprite2D" parent="."]
+scale = Vector2(0.148437, 7.00001)
+texture = SubResource("GradientTexture1D_nbtbp")
+
+[node name="DoorCollision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_x2hjb")

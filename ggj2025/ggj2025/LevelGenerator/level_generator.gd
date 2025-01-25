@@ -9,8 +9,8 @@ var node_list: Array = []
 
 # We'll define our "room grid size"
 # If each room is 10x8 tiles, for instance, or if you want some spacing:
-@export var tile_width: int = 200
-@export var tile_height: int = 120
+@export var tile_width: int = 640
+@export var tile_height: int = 360
 
 func _ready() -> void:
 	var path = "res://Graphs/example_graph.json"
@@ -112,7 +112,7 @@ func _build_bfs_order() -> Array:
 
 	# optional: shuffle for more random shapes
 	# result.shuffle()
-	
+	print("Result: ", result)
 	return result
 
 
@@ -125,6 +125,7 @@ func _assign_all_nodes(order: Array, index: int) -> bool:
 
 	var current_node_id = order[index]
 	var node_info = _get_node_info(current_node_id)
+	
 	if node_info == {}:
 		return false
 

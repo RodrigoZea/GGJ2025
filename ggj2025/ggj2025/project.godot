@@ -15,13 +15,14 @@ run/main_scene="res://Root/root.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
-[network]
-
-limits/debugger/max_errors_per_second=4000
-limits/debugger/max_warnings_per_second=4000
-
 [display]
 
 window/size/viewport_width=640
 window/size/viewport_height=360
 window/stretch/mode="viewport"
+window/stretch/scale_mode="integer"
+
+[network]
+
+limits/debugger/max_errors_per_second=4000
+limits/debugger/max_warnings_per_second=4000

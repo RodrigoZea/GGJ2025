@@ -1,22 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://breqjoofu7fck"]
+[gd_scene load_steps=3 format=3 uid="uid://breqjoofu7fck"]
 
 [ext_resource type="Script" path="res://Rooms/Room.gd" id="1_w1cbg"]
-
-[sub_resource type="Gradient" id="Gradient_02btm"]
-offsets = PackedFloat32Array(0, 0.993976)
-colors = PackedColorArray(0, 1, 0, 1, 0, 1, 0, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_u0ol4"]
-gradient = SubResource("Gradient_02btm")
+[ext_resource type="PackedScene" uid="uid://dwfnu0vqhlkij" path="res://Doors/door_down.tscn" id="2_bapfj"]
 
 [node name="Pump1" type="Node2D"]
 script = ExtResource("1_w1cbg")
 
 [node name="Base" type="Polygon2D" parent="."]
 color = Color(0.902326, 0.41193, 0.587642, 1)
-polygon = PackedVector2Array(-100, -60, 100, -60, 100, 60, -100, 60)
+polygon = PackedVector2Array(-320, -180, 320, -180, 320, 180, -320, 180)
 
-[node name="DoorDown" type="Sprite2D" parent="Base"]
-position = Vector2(0, 56)
-scale = Vector2(0.148437, 7.00001)
-texture = SubResource("GradientTexture1D_u0ol4")
+[node name="DoorDown" parent="Base" instance=ExtResource("2_bapfj")]
+position = Vector2(0, 176)

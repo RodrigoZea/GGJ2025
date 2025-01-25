@@ -1,22 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://bg3c0db54gp4w"]
+[gd_scene load_steps=3 format=3 uid="uid://bg3c0db54gp4w"]
 
 [ext_resource type="Script" path="res://Rooms/Room.gd" id="1_6nnhf"]
-
-[sub_resource type="Gradient" id="Gradient_4nef5"]
-offsets = PackedFloat32Array(0, 0.993976)
-colors = PackedColorArray(0, 1, 0, 1, 0, 1, 0, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_rwrlr"]
-gradient = SubResource("Gradient_4nef5")
+[ext_resource type="PackedScene" uid="uid://jqlq07p0mgfs" path="res://Doors/door_left.tscn" id="2_308os"]
 
 [node name="Final1" type="Node2D"]
 script = ExtResource("1_6nnhf")
 
 [node name="Base" type="Polygon2D" parent="."]
 color = Color(0.365071, 0.607333, 0.930883, 1)
-polygon = PackedVector2Array(-100, -60, 100, -60, 100, 60, -100, 60)
+polygon = PackedVector2Array(-320, -180, 320, -180, 320, 180, -320, 180)
 
-[node name="DoorLeft" type="Sprite2D" parent="Base"]
-position = Vector2(-97, 0)
-scale = Vector2(0.0234375, 32)
-texture = SubResource("GradientTexture1D_rwrlr")
+[node name="DoorLeft" parent="Base" instance=ExtResource("2_308os")]
+position = Vector2(-317, 0)
