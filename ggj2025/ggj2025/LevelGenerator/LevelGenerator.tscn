@@ -31,4 +31,4 @@ room_pool = {
 }
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.2, 0.2)
+zoom = Vector2(0.15, 0.15)

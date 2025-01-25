@@ -38,6 +38,7 @@ func generate_level(json_path: String) -> void:
 	# 5. If successful, spawn the final scene
 	var dungeon = _spawn_rooms()
 	add_child(dungeon)
+	_setup_doors(dungeon)
 
 
 #
@@ -280,91 +281,101 @@ func _spawn_rooms() -> Node2D:
 
 		# We'll add the instance first
 		root.add_child(instance)
-	# AFTER we've spawned everything, remove or disable unused exits
-	_remove_unused_exits(root)
 
 	return root
 
 
-#
-# Remove or hide doors leading nowhere
-# We'll assume each instance (Room) has a script or method "disable_exit(direction)"
-# that hides/closes the door in that direction.
-# 
-func _remove_unused_exits(dungeon_root: Node2D) -> void:
-	# For each node, check adjacency. If no neighbor in a direction, we disable that exit.
+func _setup_doors(dungeon_root: Node2D) -> void:
+	# For each assigned node
 	for node_info in node_list:
 		var int_id = int(node_info["id"])
 		if not assigned_rooms.has(int_id):
 			continue
 
-		var rd = assigned_rooms[int_id]["room_data"]  # The RoomData resource
 		var gx = assigned_rooms[int_id]["grid_x"]
 		var gy = assigned_rooms[int_id]["grid_y"]
+		var room_data = assigned_rooms[int_id]["room_data"]
 
-		# find the child instance in dungeon_root
-		# a simple approach: the nth child might not always match. 
-		# We can store a dictionary of node_id -> instance references if needed.
-		# For demonstration, we'll do a naive search:
-		var instance: Node2D = null
-		for child in dungeon_root.get_children():
-			if child is Node2D:
-				var cpos = child.position
-				# compare with (gx, gy) converted
-				if cpos == Vector2(gx * tile_width, gy * tile_height):
-					instance = child
-					break
-		if instance == null:
+		# Get the actual room instance in the scene
+		var room_instance = _get_room_instance_at_grid(dungeon_root, gx, gy)
+		if room_instance == null:
 			continue
-			
-		# Up neighbor
-		var up_neighbor_id = _find_node_at_grid(gx, gy - 1)
-		if up_neighbor_id < 0:
-			# no neighbor => disable 'up'
-			if instance.has_method("disable_exit"):
-				instance.call("disable_exit", "up")
-		else:
-			# check if that neighbor has 'down'
-			var neighbor_data = assigned_rooms[up_neighbor_id]["room_data"]
-			if not neighbor_data.has_exit("down"):
-				if instance.has_method("disable_exit"):
-					instance.call("disable_exit", "up")
 
-		# Down neighbor
-		var down_neighbor_id = _find_node_at_grid(gx, gy + 1)
-		if down_neighbor_id < 0:
-			if instance.has_method("disable_exit"):
-				instance.call("disable_exit", "down")
-		else:
-			var neighbor_data = assigned_rooms[down_neighbor_id]["room_data"]
-			if not neighbor_data.has_exit("up"):
-				if instance.has_method("disable_exit"):
-					instance.call("disable_exit", "down")
+		# We'll handle each direction (up/down/left/right). 
+		# If there's a neighbor with matching exits, we set door IDs.
+		# Otherwise, we remove or hide that door.
 
-		# Left neighbor
-		var left_neighbor_id = _find_node_at_grid(gx - 1, gy)
-		if left_neighbor_id < 0:
-			if instance.has_method("disable_exit"):
-				instance.call("disable_exit", "left")
-		else:
-			var neighbor_data = assigned_rooms[left_neighbor_id]["room_data"]
-			if not neighbor_data.has_exit("right"):
-				if instance.has_method("disable_exit"):
-					instance.call("disable_exit", "left")
+		# =============== UP ===============
+		var door_up = room_instance.get_node_or_null("Base/DoorUp") as Area2D
+		if door_up != null:
+			var up_neighbor_id = _find_node_at_grid(gx, gy - 1)
+			if up_neighbor_id >= 0:
+				# There's a node above, but does that neighbor have an exit "down"?
+				var neighbor_data = assigned_rooms[up_neighbor_id]["room_data"]
+				if neighbor_data.has_exit("down") and room_data.has_exit("up"):
+					# Great, we have a match => set door's IDs
+					if door_up is Door:
+						door_up.owner_room_id = int_id
+						door_up.connected_room_id = up_neighbor_id
+				else:
+					# Mismatch or neighbor can't come down => remove/hide door
+					door_up.queue_free()  # or door_up.visible = false
+			else:
+				# No neighbor => remove door
+				door_up.queue_free()
 
-		# Right neighbor
-		var right_neighbor_id = _find_node_at_grid(gx + 1, gy)
-		if right_neighbor_id < 0:
-			if instance.has_method("disable_exit"):
-				instance.call("disable_exit", "right")
-		else:
-			var neighbor_data = assigned_rooms[right_neighbor_id]["room_data"]
-			if not neighbor_data.has_exit("left"):
-				if instance.has_method("disable_exit"):
-					instance.call("disable_exit", "right")
+		# =============== DOWN ===============
+		var door_down = room_instance.get_node_or_null("Base/DoorDown") as Area2D
+		if door_down != null:
+			var down_neighbor_id = _find_node_at_grid(gx, gy + 1)
+			if down_neighbor_id >= 0:
+				var neighbor_data = assigned_rooms[down_neighbor_id]["room_data"]
+				if neighbor_data.has_exit("up") and room_data.has_exit("down"):
+					if door_down is Door:
+						door_down.owner_room_id = int_id
+						door_down.connected_room_id = down_neighbor_id
+				else:
+					door_down.queue_free()
+			else:
+				door_down.queue_free()
 
+		# =============== LEFT ===============
+		var door_left = room_instance.get_node_or_null("Base/DoorLeft") as Area2D
+		if door_left != null:
+			var left_neighbor_id = _find_node_at_grid(gx - 1, gy)
+			if left_neighbor_id >= 0:
+				var neighbor_data = assigned_rooms[left_neighbor_id]["room_data"]
+				if neighbor_data.has_exit("right") and room_data.has_exit("left"):
+					if door_left is Door:
+						door_left.owner_room_id = int_id
+						door_left.connected_room_id = left_neighbor_id
+				else:
+					door_left.queue_free()
+			else:
+				door_left.queue_free()
 
-# find which node is at grid_x, grid_y, or return -1 if none
+		# =============== RIGHT ===============
+		var door_right = room_instance.get_node_or_null("Base/DoorRight") as Area2D
+		if door_right != null:
+			var right_neighbor_id = _find_node_at_grid(gx + 1, gy)
+			if right_neighbor_id >= 0:
+				var neighbor_data = assigned_rooms[right_neighbor_id]["room_data"]
+				if neighbor_data.has_exit("left") and room_data.has_exit("right"):
+					if door_right is Door:
+						door_right.owner_room_id = int_id
+						door_right.connected_room_id = right_neighbor_id
+				else:
+					door_right.queue_free()
+			else:
+				door_right.queue_free()
+
+func _get_room_instance_at_grid(dungeon_root: Node2D, gx: int, gy: int) -> Node2D:
+	var pos = Vector2(gx * tile_width, gy * tile_height)
+	for child in dungeon_root.get_children():
+		if child is Node2D and child.position == pos:
+			return child
+	return null
+
 func _find_node_at_grid(gx: int, gy: int) -> int:
 	for node_id in assigned_rooms.keys():
 		var info = assigned_rooms[node_id]
