@@ -1,3 +1,33 @@
-[gd_scene format=3 uid="uid://djjmau8xcv6nm"]
+[gd_scene load_steps=20 format=3 uid="uid://djjmau8xcv6nm"]
+
+[ext_resource type="Script" path="res://LevelGenerator/level_generator.gd" id="1_abljm"]
+[ext_resource type="Resource" uid="uid://02unqtsw2rha" path="res://Rooms/RoomResources/Normal/normal1.tres" id="2_xqiyd"]
+[ext_resource type="Resource" uid="uid://bumbr2ufiu5ve" path="res://Rooms/RoomResources/Normal/normal2.tres" id="3_trv6l"]
+[ext_resource type="Resource" uid="uid://ieggstse0ff5" path="res://Rooms/RoomResources/Normal/normal3.tres" id="4_ofpfi"]
+[ext_resource type="Resource" uid="uid://phipu5eecudi" path="res://Rooms/RoomResources/Normal/normal4.tres" id="5_s7l1w"]
+[ext_resource type="Resource" uid="uid://tpgyn3fvhgob" path="res://Rooms/RoomResources/Normal/normal5.tres" id="6_4fxmn"]
+[ext_resource type="Resource" uid="uid://cfr833iqxc7nx" path="res://Rooms/RoomResources/Starting/starting1.tres" id="7_gmrw4"]
+[ext_resource type="Resource" uid="uid://by3atiojfqjnt" path="res://Rooms/RoomResources/Coin/coin1.tres" id="8_boo55"]
+[ext_resource type="Resource" uid="uid://dthv0giyge084" path="res://Rooms/RoomResources/Coin/coin2.tres" id="9_4fx0v"]
+[ext_resource type="Resource" uid="uid://cpqi2etichxau" path="res://Rooms/RoomResources/Coin/coin3.tres" id="10_sumir"]
+[ext_resource type="Resource" uid="uid://c6oblymu1r4aq" path="res://Rooms/RoomResources/Coin/coin4.tres" id="11_6mv0c"]
+[ext_resource type="Resource" uid="uid://bs77vytovrqbh" path="res://Rooms/RoomResources/Pump/pump1.tres" id="12_2pa1x"]
+[ext_resource type="Resource" uid="uid://dyybi33ku3sc7" path="res://Rooms/RoomResources/Pump/pump2.tres" id="13_qs3y4"]
+[ext_resource type="Resource" uid="uid://b48ga7wqhpvcw" path="res://Rooms/RoomResources/Pump/pump3.tres" id="14_0kg4p"]
+[ext_resource type="Resource" uid="uid://cc3vjrp7hgwly" path="res://Rooms/RoomResources/Pump/pump4.tres" id="15_ha4nk"]
+[ext_resource type="Resource" uid="uid://bhlxrjhiokeon" path="res://Rooms/RoomResources/Final/final1.tres" id="16_bqyd2"]
+[ext_resource type="Resource" uid="uid://df0pbx0pxcgmf" path="res://Rooms/RoomResources/Final/final2.tres" id="17_b1766"]
+[ext_resource type="Resource" uid="uid://cgkf82l3l1f7s" path="res://Rooms/RoomResources/Final/final3.tres" id="18_irvna"]
+[ext_resource type="Resource" uid="uid://cpokvu71564u2" path="res://Rooms/RoomResources/Final/final4.tres" id="19_21r3u"]
 
 [node name="LevelGenerator" type="Node2D"]
+script = ExtResource("1_abljm")
+room_pool = {
+"Coin": [ExtResource("8_boo55"), ExtResource("9_4fx0v"), ExtResource("10_sumir"), ExtResource("11_6mv0c")],
+"Final": [ExtResource("16_bqyd2"), ExtResource("17_b1766"), ExtResource("18_irvna"), ExtResource("19_21r3u")],
+"Normal": [ExtResource("2_xqiyd"), ExtResource("3_trv6l"), ExtResource("4_ofpfi"), ExtResource("5_s7l1w"), ExtResource("6_4fxmn")],
+"Pump": [ExtResource("12_2pa1x"), ExtResource("13_qs3y4"), ExtResource("14_0kg4p"), ExtResource("15_ha4nk")],
+"Starting": [ExtResource("7_gmrw4")]
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]

@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://yrunhvgjn678"]
+
+[ext_resource type="Script" path="res://Rooms/Room.gd" id="1_kbjat"]
+
+[sub_resource type="Gradient" id="Gradient_pyyoa"]
+offsets = PackedFloat32Array(0, 0.993976)
+colors = PackedColorArray(0, 1, 0, 1, 0, 1, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ky5lt"]
+gradient = SubResource("Gradient_pyyoa")
+
+[node name="Starting1" type="Node2D"]
+script = ExtResource("1_kbjat")
+
+[node name="Base" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-100, -60, 100, -60, 100, 60, -100, 60)
+
+[node name="DoorUp" type="Sprite2D" parent="Base"]
+position = Vector2(0, -56)
+scale = Vector2(0.148437, 7.00001)
+texture = SubResource("GradientTexture1D_ky5lt")
+
+[node name="DoorRight" type="Sprite2D" parent="Base"]
+position = Vector2(97, 0)
+scale = Vector2(0.0234375, 32)
+texture = SubResource("GradientTexture1D_ky5lt")

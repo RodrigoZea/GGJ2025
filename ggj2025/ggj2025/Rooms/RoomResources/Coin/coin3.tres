@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="RoomData" load_steps=3 format=3 uid="uid://cpqi2etichxau"]
+
+[ext_resource type="PackedScene" uid="uid://bjy54caqm28am" path="res://Rooms/RoomScenes/Coin/Coin3.tscn" id="1_u0fy4"]
+[ext_resource type="Script" path="res://LevelGenerator/RoomData.gd" id="2_ahd3o"]
+
+[resource]
+script = ExtResource("2_ahd3o")
+room_type = "Coin"
+can_exit_up = false
+can_exit_down = true
+can_exit_left = false
+can_exit_right = false
+scene = ExtResource("1_u0fy4")

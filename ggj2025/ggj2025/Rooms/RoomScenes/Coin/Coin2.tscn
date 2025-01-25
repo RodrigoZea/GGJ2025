@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://c4ddlyo6418up"]
+
+[ext_resource type="Script" path="res://Rooms/Room.gd" id="1_2lnry"]
+
+[sub_resource type="Gradient" id="Gradient_l80d8"]
+offsets = PackedFloat32Array(0, 0.993976)
+colors = PackedColorArray(0, 1, 0, 1, 0, 1, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3gx43"]
+gradient = SubResource("Gradient_l80d8")
+
+[node name="Coin1" type="Node2D"]
+script = ExtResource("1_2lnry")
+
+[node name="Base" type="Polygon2D" parent="."]
+color = Color(0.893907, 0.780358, 0.364663, 1)
+polygon = PackedVector2Array(-100, -60, 100, -60, 100, 60, -100, 60)
+
+[node name="DoorUp" type="Sprite2D" parent="Base"]
+position = Vector2(0, -56)
+scale = Vector2(0.148437, 7.00001)
+texture = SubResource("GradientTexture1D_3gx43")

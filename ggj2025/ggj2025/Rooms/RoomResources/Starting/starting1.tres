@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="RoomData" load_steps=3 format=3 uid="uid://cfr833iqxc7nx"]
+
+[ext_resource type="PackedScene" uid="uid://yrunhvgjn678" path="res://Rooms/RoomScenes/Starting/Starting1.tscn" id="1_4dcit"]
+[ext_resource type="Script" path="res://LevelGenerator/RoomData.gd" id="1_tragu"]
+
+[resource]
+script = ExtResource("1_tragu")
+room_type = "Starting"
+can_exit_up = true
+can_exit_down = false
+can_exit_left = false
+can_exit_right = true
+scene = ExtResource("1_4dcit")

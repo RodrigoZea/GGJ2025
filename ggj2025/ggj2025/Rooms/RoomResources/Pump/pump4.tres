@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="RoomData" load_steps=3 format=3 uid="uid://cc3vjrp7hgwly"]
+
+[ext_resource type="PackedScene" uid="uid://b55mkw3kgg1id" path="res://Rooms/RoomScenes/Pump/Pump4.tscn" id="1_163pp"]
+[ext_resource type="Script" path="res://LevelGenerator/RoomData.gd" id="2_xt8cr"]
+
+[resource]
+script = ExtResource("2_xt8cr")
+room_type = "Pump"
+can_exit_up = false
+can_exit_down = false
+can_exit_left = false
+can_exit_right = true
+scene = ExtResource("1_163pp")
