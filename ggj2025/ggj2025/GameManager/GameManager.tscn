@@ -28,7 +28,6 @@ process_mode = 3
 layer = 2
 
 [node name="GameOverOverlay" type="Control" parent="CanvasLayer"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -77,15 +76,6 @@ size_flags_vertical = 4
 theme_override_fonts/font = ExtResource("5_yxut2")
 theme_override_font_sizes/font_size = 12
 text = "RETRY"
-
-[node name="Button3" type="Button" parent="CanvasLayer/GameOverOverlay/ColorRect/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(100, 25)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_fonts/font = ExtResource("5_yxut2")
-theme_override_font_sizes/font_size = 12
-text = "MAIN MENU"
 
 [node name="Button2" type="Button" parent="CanvasLayer/GameOverOverlay/ColorRect/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(100, 25)
