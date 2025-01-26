@@ -7,8 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://dwfnu0vqhlkij" path="res://Doors/door_down.tscn" id="4_1xovx"]
 [ext_resource type="PackedScene" uid="uid://jqlq07p0mgfs" path="res://Doors/door_left.tscn" id="5_rk4mm"]
 [ext_resource type="PackedScene" uid="uid://t5cis28rw13w" path="res://Obstacles/Pipes/Pipe1.tscn" id="7_jd7ri"]
-[ext_resource type="PackedScene" uid="uid://1pivojsyh2ep" path="res://Obstacles/Pipes/Pipe6.tscn" id="8_cgem1"]
-[ext_resource type="PackedScene" uid="uid://dvvwdk7xxarsr" path="res://Obstacles/Pipes/Pipe8.tscn" id="9_st5g7"]
+[ext_resource type="PackedScene" path="res://Obstacles/Pipes/Pipe6.tscn" id="8_cgem1"]
+[ext_resource type="PackedScene" path="res://Obstacles/Pipes/Pipe8.tscn" id="9_st5g7"]
 [ext_resource type="PackedScene" uid="uid://di3tohf5u2ua7" path="res://Obstacles/PipeLeak/PipeLeak.tscn" id="10_iwrol"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_skh37"]
@@ -69,16 +69,16 @@ tile_map_data = PackedByteArray("AAD4//r/AAACAAAAAAD4//v/AAACAAEAAAD5//r/AAADAAA
 tile_set = SubResource("TileSet_v38s0")
 
 [node name="DoorUp" parent="Base" instance=ExtResource("2_qjlrb")]
-position = Vector2(0, -176)
+position = Vector2(0, -160)
 
 [node name="DoorRight" parent="Base" instance=ExtResource("3_pio7o")]
-position = Vector2(317, 0)
+position = Vector2(301, 0)
 
 [node name="DoorDown" parent="Base" instance=ExtResource("4_1xovx")]
-position = Vector2(0, 176)
+position = Vector2(0, 160)
 
 [node name="DoorLeft" parent="Base" instance=ExtResource("5_rk4mm")]
-position = Vector2(-317, 0)
+position = Vector2(-301, 0)
 
 [node name="Pipe1" parent="." instance=ExtResource("7_jd7ri")]
 position = Vector2(-314, 127)
