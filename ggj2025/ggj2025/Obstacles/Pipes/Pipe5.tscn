@@ -3,7 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://ct47aoc7ayrs" path="res://Hurtbox/HurtBox.tscn" id="2_lkayf"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_t1fed"]
-load_path = "res://.godot/imported/pipes.png-e9c82bec61367c1a62a3d9baee70cdd1.ctex"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5oaw4"]
 texture = SubResource("CompressedTexture2D_t1fed")
