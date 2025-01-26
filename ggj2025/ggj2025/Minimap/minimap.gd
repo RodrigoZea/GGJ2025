@@ -16,6 +16,7 @@ func _ready():
 	queue_redraw()
 
 func _center_minimap():
+	# Calculate the size of the minimap
 	var assigned_rooms = generator.assigned_rooms
 	var max_gx = -INF
 	var max_gy = -INF
@@ -28,19 +29,29 @@ func _center_minimap():
 		if gy > max_gy:
 			max_gy = gy
 
-	# Compute the width and height of the minimap
+	# Compute the minimap size
 	var map_width = (max_gx - min_gx + 1) * map_scale
 	var map_height = (max_gy - min_gy + 1) * map_scale
 
-	# Set the Minimap's size (use this for _draw offsets too)
+	# Set the minimap size
 	size = Vector2(map_width, map_height)
 
-	# Center the minimap relative to the parent Control
+	# Center the minimap within its parent
 	var parent_control = get_parent() as Control
 	if parent_control:
 		var parent_size = parent_control.size
-		# Adjust the minimap's position to be centered
 		position = (parent_size - size) * 0.5
+
+		# DEBUG: Print all calculations
+		print("Parent Control Size:", parent_size)
+		print("Minimap Size:", size)
+		print("Calculated Minimap Position:", position)
+		
+		
+		print("Parent Control Size:", parent_control.size)
+		print("Parent Control Anchors:", parent_control.anchor_top, parent_control.anchor_left, parent_control.anchor_bottom, parent_control.anchor_right)
+	
+
 
 
 func _compute_min_coords():

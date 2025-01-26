@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b5dj1j2lqs1tb" path="res://Obstacles/Pipes/Pipe2.tscn" id="3_upg11"]
 [ext_resource type="PackedScene" uid="uid://jhtqb6vx7nqw" path="res://Obstacles/Pipes/Pipe3.tscn" id="6_qydcp"]
 [ext_resource type="PackedScene" uid="uid://dya6lvwgns5gm" path="res://Soap/Soap.tscn" id="7_ghqyc"]
-[ext_resource type="PackedScene" uid="uid://1pivojsyh2ep" path="res://Obstacles/Pipes/Pipe6.tscn" id="8_1i0wu"]
+[ext_resource type="PackedScene" path="res://Obstacles/Pipes/Pipe6.tscn" id="8_1i0wu"]
 [ext_resource type="PackedScene" uid="uid://di3tohf5u2ua7" path="res://Obstacles/PipeLeak/PipeLeak.tscn" id="9_pp3e2"]
 [ext_resource type="PackedScene" uid="uid://b6gc8gppnywb3" path="res://Obstacles/Bottles/Bottle1.tscn" id="10_m86ne"]
 

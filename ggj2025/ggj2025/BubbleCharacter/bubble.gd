@@ -14,6 +14,7 @@ var moving_sprite = preload("res://Assets/Sprites/happiest-bubble.png")
 func _ready():
 	# Initialize last mouse position
 	last_mouse_pos = get_global_mouse_position()
+	GameManager.connect("room_changed", _player_room_changed)
 
 func _physics_process(delta):
 	if (scale.length() < 0.6):
@@ -63,6 +64,11 @@ func shrinking(delta) -> void:
 
 func expand(expand_factor: float) -> void:
 	scale = Vector2(expand_factor, expand_factor)
+
+func _player_room_changed(new_room_id: int) -> void:
+	print("room changed")
+	velocity = Vector2.ZERO
+	move_and_slide()
 
 func die() -> void:
 	animation_tree["parameters/conditions/dead"] = true

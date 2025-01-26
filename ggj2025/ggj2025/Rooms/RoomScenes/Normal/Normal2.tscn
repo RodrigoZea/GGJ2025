@@ -6,8 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://jqlq07p0mgfs" path="res://Doors/door_left.tscn" id="3_8mlwh"]
 [ext_resource type="PackedScene" uid="uid://b5dj1j2lqs1tb" path="res://Obstacles/Pipes/Pipe2.tscn" id="5_wcaks"]
 [ext_resource type="PackedScene" uid="uid://t5cis28rw13w" path="res://Obstacles/Pipes/Pipe1.tscn" id="6_rdpuh"]
-[ext_resource type="PackedScene" uid="uid://btqq237b7bwfk" path="res://Obstacles/Pipes/Pipe7.tscn" id="7_sndal"]
-[ext_resource type="PackedScene" uid="uid://c8wowa2gm3xj8" path="res://Obstacles/Pipes/Pipe9.tscn" id="8_hdp4w"]
+[ext_resource type="PackedScene" path="res://Obstacles/Pipes/Pipe7.tscn" id="7_sndal"]
+[ext_resource type="PackedScene" path="res://Obstacles/Pipes/Pipe9.tscn" id="8_hdp4w"]
 [ext_resource type="PackedScene" uid="uid://dobg5tascwq58" path="res://Waterfall/Waterfall.tscn" id="9_wg82f"]
 [ext_resource type="PackedScene" uid="uid://di3tohf5u2ua7" path="res://Obstacles/PipeLeak/PipeLeak.tscn" id="10_cec13"]
 

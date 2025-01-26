@@ -42,3 +42,5 @@ offset_bottom = 34.3
 grow_horizontal = 2
 grow_vertical = 2
 map_scale = 8
+offset_x = 0
+offset_y = 0
