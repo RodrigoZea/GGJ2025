@@ -11,7 +11,6 @@ var can_transition_to_room = true
 signal room_changed
 
 func _ready():
-	print(player)
 	var start_id = _get_starting_room_id()
 	current_room_id = start_id
 	GameManager.visited_rooms = { 0: true } 

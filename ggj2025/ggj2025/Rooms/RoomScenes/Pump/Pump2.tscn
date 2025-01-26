@@ -5,10 +5,10 @@
 [ext_resource type="Texture2D" uid="uid://cqrq43cty6urg" path="res://Assets/Sprites/background.png" id="2_lo5ei"]
 [ext_resource type="PackedScene" uid="uid://bubnkhfsubs0t" path="res://Doors/door_right.tscn" id="4_fvjh0"]
 [ext_resource type="PackedScene" uid="uid://dya6lvwgns5gm" path="res://Soap/Soap.tscn" id="4_x3ixw"]
-[ext_resource type="PackedScene" path="res://Obstacles/Pipes/Pipe8.tscn" id="5_eunxt"]
+[ext_resource type="PackedScene" uid="uid://dvvwdk7xxarsr" path="res://Obstacles/Pipes/Pipe8.tscn" id="5_eunxt"]
 [ext_resource type="PackedScene" uid="uid://jqlq07p0mgfs" path="res://Doors/door_left.tscn" id="5_ppvuw"]
-[ext_resource type="PackedScene" path="res://Obstacles/Pipes/Pipe6.tscn" id="6_ie4m8"]
-[ext_resource type="PackedScene" path="res://Obstacles/Pipes/Pipe9.tscn" id="7_g5qw8"]
+[ext_resource type="PackedScene" uid="uid://1pivojsyh2ep" path="res://Obstacles/Pipes/Pipe6.tscn" id="6_ie4m8"]
+[ext_resource type="PackedScene" uid="uid://c8wowa2gm3xj8" path="res://Obstacles/Pipes/Pipe9.tscn" id="7_g5qw8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_apf45"]
 texture = ExtResource("2_lo5ei")

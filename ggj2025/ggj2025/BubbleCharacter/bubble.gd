@@ -84,7 +84,13 @@ func die() -> void:
 	_reset_velocity() 
 
 func end_bubble() -> void:
-	queue_free()
+	visible = false
+	
+func show_fail_screen() -> void:
+	print("SHOW END SCREEN")
+	
+func show_victory_screen() -> void:
+	print("SHOW VICTORY SCREEN")
 
 func _update_sprite() -> void:
 	if velocity.length() > 0.3:
