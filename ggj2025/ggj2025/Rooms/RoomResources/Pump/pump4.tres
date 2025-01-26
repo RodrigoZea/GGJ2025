@@ -7,7 +7,7 @@
 script = ExtResource("2_xt8cr")
 room_type = "Pump"
 can_exit_up = false
-can_exit_down = false
-can_exit_left = false
+can_exit_down = true
+can_exit_left = true
 can_exit_right = true
 scene = ExtResource("1_163pp")

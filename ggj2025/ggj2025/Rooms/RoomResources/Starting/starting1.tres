@@ -8,6 +8,6 @@ script = ExtResource("1_tragu")
 room_type = "Starting"
 can_exit_up = true
 can_exit_down = false
-can_exit_left = false
+can_exit_left = true
 can_exit_right = true
 scene = ExtResource("1_4dcit")

@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_xksxp")
 room_type = "Pump"
-can_exit_up = false
+can_exit_up = true
 can_exit_down = false
 can_exit_left = true
 can_exit_right = false
