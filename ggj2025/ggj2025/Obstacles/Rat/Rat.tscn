@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://dvod77m8i0ui0"]
+
+[ext_resource type="Texture2D" uid="uid://7u7xxqq0mpwk" path="res://Assets/Sprites/rat.png" id="1_c88a6"]
+[ext_resource type="Script" path="res://Obstacles/Rat/rat.gd" id="1_veerc"]
+[ext_resource type="PackedScene" uid="uid://ct47aoc7ayrs" path="res://Hurtbox/HurtBox.tscn" id="3_tno1f"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1oskq"]
+radius = 12.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lxoxa"]
+radius = 12.0
+height = 32.0
+
+[node name="Rat" type="CharacterBody2D"]
+script = ExtResource("1_veerc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_c88a6")
+
+[node name="HurtBox" parent="." instance=ExtResource("3_tno1f")]
+position = Vector2(0.75, 22.095)
+scale = Vector2(1.28, 1.395)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 27)
+shape = SubResource("CircleShape2D_1oskq")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1, -23)
+shape = SubResource("CapsuleShape2D_lxoxa")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_shape_entered" from="Area2D" to="." method="_on_area_2d_area_shape_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://di3tohf5u2ua7"]
 
-[ext_resource type="Texture2D" uid="uid://7u7xxqq0mpwk" path="res://Assets/Sprites/image.png" id="1_6enbb"]
 [ext_resource type="Script" path="res://Obstacles/PipeLeak/pipe_leak.gd" id="1_qd2vg"]
+[ext_resource type="Texture2D" uid="uid://bm1wvafhuhujl" path="res://Assets/Sprites/spewage.png" id="2_qk1uy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p4ryj"]
 radius = 5.0
@@ -129,7 +129,7 @@ shape = SubResource("CapsuleShape2D_p4ryj")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
 texture_filter = 1
-texture = ExtResource("1_6enbb")
+texture = ExtResource("2_qk1uy")
 hframes = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
