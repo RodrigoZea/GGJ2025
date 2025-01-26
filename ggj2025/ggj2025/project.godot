@@ -10,10 +10,10 @@ config_version=5
 
 [application]
 
-config/name="GGJ2025"
+config/name="Pipe Dreams"
 run/main_scene="res://UI/Menu/Menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://Assets/Sprites/bubble_icon.png"
 
 [display]
 
