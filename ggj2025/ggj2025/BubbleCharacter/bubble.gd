@@ -12,7 +12,9 @@ var idle_sprite = preload("res://Assets/Sprites/happy-bubble.png")
 var moving_sprite = preload("res://Assets/Sprites/happiest-bubble.png")
 var can_move = true 
 var gm
+var has_won := false
 signal popped
+signal victory
 
 func _ready():
 	# Initialize last mouse position
@@ -27,9 +29,12 @@ func _physics_process(delta):
 		_reset_velocity() 
 		return
 	
-	if (scale.length() < 0.6):
+	if (scale.length() < 0.6 && !has_won):
 		die()
-	
+	elif (scale.length() <= 0.3 && has_won):
+		hide()
+		show_victory_screen()
+		
 	shrinking(delta)
 	
 	# Get the current mouse position in global coordinates
@@ -90,13 +95,15 @@ func die() -> void:
 
 func end_bubble() -> void:
 	emit_signal("popped")
-	visible = false
+	hide()
 	
-func show_fail_screen() -> void:
-	print("SHOW END SCREEN")
+func victory_shrink() -> void:
+	has_won = true
+	shrinking_factor = 4
 	
 func show_victory_screen() -> void:
-	print("SHOW VICTORY SCREEN")
+	emit_signal("victory")
+	queue_free()
 
 func _update_sprite() -> void:
 	if velocity.length() > 0.3:

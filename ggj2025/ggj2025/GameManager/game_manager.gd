@@ -34,12 +34,23 @@ func _ready():
 	
 		
 	player.connect("popped", _on_game_over)
+	player.connect("victory", _show_victory_screen)
 	retry_button.connect("pressed", _retry)
 	_center_camera_on_room(start_id, false)
 	minimap.set_gm(self)
 
 func _on_game_over() -> void:
+	$CanvasLayer/GameOverOverlay/ColorRect/MarginContainer/VBoxContainer/GameOverLabel.text = "GAME OVER"
+	$CanvasLayer/GameOverOverlay/ColorRect/MarginContainer/VBoxContainer/Button.text = "RETRY"
 	$CanvasLayer/GameOverOverlay.visible = true
+
+func _on_victory() -> void:
+	$CanvasLayer/GameOverOverlay/ColorRect/MarginContainer/VBoxContainer/GameOverLabel.set_text("YOU HAVE ESCAPED")
+	$CanvasLayer/GameOverOverlay/ColorRect/MarginContainer/VBoxContainer/Button.set_text("START OVER")
+	$CanvasLayer/GameOverOverlay.visible = true
+	
+func _show_victory_screen() -> void:
+	$CanvasLayer/AnimationPlayer.play("fade_in_victory_screen")
 
 func _retry() -> void:
 	level.reset()
@@ -53,6 +64,7 @@ func reset():
 	visited_rooms.clear()
 	can_transition_to_room = true
 	$CanvasLayer/GameOverOverlay.visible = false  # Hide the Game Over overlay
+	$CanvasLayer/VictoryScreen.visible = false
 	$AudioStreamPlayer2D.play(0.0)
 	
 	# Reset the player
@@ -103,6 +115,21 @@ func _retrieve_spawn_position(start_id) -> Vector2:
 		spawn_position = _get_room_center(start_id)
 		
 	return spawn_position
+
+	# Reinitialize the player
+	if character_scene:
+		var character_instance = character_scene.instantiate() as Node2D
+		level.add_child(character_instance)
+		player = character_instance
+		player.position = spawn_position
+
+		# Reconnect player signals
+		player.connect("popped", _on_game_over)
+		player.connect("victory", _show_victory_screen)
+
+	# Reset camera position
+	_center_camera_on_room(current_room_id, false)
+
 
 func _on_timer_timeout() -> void:
 	can_transition_to_room = true

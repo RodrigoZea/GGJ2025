@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dkbvnd0gm27f5"]
+[gd_scene load_steps=27 format=3 uid="uid://dkbvnd0gm27f5"]
 
 [ext_resource type="Script" path="res://BubbleCharacter/bubble.gd" id="1_rj0dg"]
 [ext_resource type="Shader" path="res://BubbleCharacter/bubble.gdshader" id="2_5f4cv"]
@@ -157,11 +157,16 @@ tracks/2/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_w3r7v"]
+resource_name = "victory"
+step = 0.2
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_q3e0w"]
 _data = {
 "death": SubResource("Animation_qv8gx"),
 "idle": SubResource("Animation_qk035"),
-"pop": SubResource("Animation_lawnj")
+"pop": SubResource("Animation_lawnj"),
+"victory": SubResource("Animation_w3r7v")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rlgd7"]
