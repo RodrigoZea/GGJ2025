@@ -4,9 +4,13 @@ extends CharacterBody2D
 var speed: float = 5.0 # Strength of the push
 var influence_distance: float = 50.0 # Maximum distance for the mouse to influence the bubble
 var last_mouse_pos: Vector2 = Vector2.ZERO
-
+@onready var animation_tree = $AnimationTree
 @export var shrinking_factor := 0.05
-
+@onready var sprite2d = $Sprite2D
+@onready var collision_shape = $CollisionShape2D
+var idle_sprite = preload("res://Assets/Sprites/happy-bubble.png")
+var moving_sprite = preload("res://Assets/Sprites/happiest-bubble.png")
+ 
 func _ready():
 	# Initialize last mouse position
 	last_mouse_pos = get_global_mouse_position()
@@ -39,13 +43,17 @@ func _physics_process(delta):
 	var normalized_mouse_pos = mouse_pos / Vector2(viewport_size)
 	#$Sprite2D.material.set_shader_parameter("mouse_position", normalized_mouse_pos)
 	#$Sprite2D.material.set_shader_parameter("time", Time.get_ticks_msec() / 1000.0)
-
+	
+	$AnimatedSprite2D.material.set_shader_parameter("progress", fmod(Time.get_ticks_msec() / 1000.0, 1.0))
+	print(int(Time.get_ticks_msec() / 1000.0) % 1)
+	_update_sprite()
+	_update_sprite_position(mouse_pos)
 	# Save the current mouse position for the next frame
 	last_mouse_pos = mouse_pos
 
 	# Debugging info
 	#print("Mouse Delta: ", mouse_delta)
-	#print("Velocity: ", velocity)
+	#print("Velocity: ", velocity.length())
 	#print("Global Position: ", global_position)
 	#print("Distance to Mouse: ", global_position.distance_to(mouse_pos))
 	#print(scale.length())
@@ -57,4 +65,28 @@ func expand(expand_factor: float) -> void:
 	scale = Vector2(expand_factor, expand_factor)
 
 func die() -> void:
+	animation_tree["parameters/conditions/dead"] = true
+
+func end_bubble() -> void:
 	queue_free()
+
+func _update_sprite() -> void:
+	if velocity.length() > 0.3:
+		sprite2d.texture = moving_sprite
+	else:
+		sprite2d.texture = idle_sprite
+
+# Update Sprite2D position relative to mouse
+func _update_sprite_position(mouse_pos: Vector2) -> void:
+	var bubble_radius = collision_shape.shape.radius * 0.4
+	var bubble_center = global_position
+
+	# Calculate the desired offset for the sprite
+	var desired_offset = mouse_pos - bubble_center
+
+	# Clamp the offset to the circle radius
+	if desired_offset.length() > bubble_radius:
+		desired_offset = desired_offset.normalized() * bubble_radius
+
+	# Set the sprite's new position
+	sprite2d.position = desired_offset

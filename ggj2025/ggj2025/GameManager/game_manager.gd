@@ -41,15 +41,16 @@ func _offset_player_position(from_room_id: int, to_room_id: int) -> void:
 	var to_gx = to_room["grid_x"]
 	var to_gy = to_room["grid_y"]
 
+	var move_bubble = 150
 	var offset = Vector2.ZERO
 	if to_gx > from_gx:  # Moving right
-		offset = Vector2(70, 0)
+		offset = Vector2(move_bubble, 0)
 	elif to_gx < from_gx:  # Moving left
-		offset = Vector2(-70, 0)
+		offset = Vector2(-move_bubble, 0)
 	elif to_gy > from_gy:  # Moving down
-		offset = Vector2(0, 70)
+		offset = Vector2(0, move_bubble)
 	elif to_gy < from_gy:  # Moving up
-		offset = Vector2(0, -70)
+		offset = Vector2(0, -move_bubble)
 
 	player.position += offset
 

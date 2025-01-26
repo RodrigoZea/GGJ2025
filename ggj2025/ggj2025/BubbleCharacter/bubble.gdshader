@@ -1,42 +1,33 @@
 shader_type canvas_item;
 
-uniform vec2 mouse_position; // Normalized mouse position (0 to 1 in viewport space)
-uniform float poke_strength : hint_range(0.0, 1.0) = 0.3; // Strength of the inward deformation
-uniform float deformation_radius : hint_range(0.0, 1.0) = 0.5; // Area of influence for deformation
+// Animate the wave (looping animation)
+uniform float progress: hint_range(0.0, 1.0) = 0.0;
+
+// Wave amplitude (controls how strong the wave effect is)
+uniform float meltness: hint_range(0.0, 3.0) = 1.0;
+
+// Wave frequency (controls how many waves appear across the sprite)
+uniform float wave_frequency: hint_range(0.0, 30.0) = 20.0;
+
+// Animation speed multiplier
+uniform float speed: hint_range(0.0, 10.0) = 1.0;
+
+float wave(float x, float y) {
+    return sin(2.0 * PI * (progress * speed) + wave_frequency * x + wave_frequency * y);
+}
 
 void fragment() {
-    vec2 uv = UV; // Normalized texture coordinates
-    vec2 center = vec2(0.5); // Center of the bubble in UV space
+    vec2 uv = UV;
 
-    // Calculate distance and direction
-    float distance_from_center = length(uv - center);
-    vec2 direction_to_mouse = normalize(mouse_position - center); // From bubble center to mouse
-    vec2 direction_to_uv = normalize(uv - center); // From bubble center to current pixel
-    float distance_from_mouse = length(uv - mouse_position);
+    // Apply a wave effect to both X and Y UV coordinates
+    uv.x += wave(uv.y, uv.x) * meltness * 0.01;
+    uv.y += wave(uv.x, uv.y) * meltness * 0.01;
 
-    // Define bubble boundary
-    float bubble_radius = 0.4; // Bubble radius
+    // Sample the texture with the distorted UVs
+    COLOR = texture(TEXTURE, uv);
 
-    // Apply deformation only if within range
-    float mouse_influence = smoothstep(deformation_radius, 0.0, distance_from_mouse);
-
-    // Stronger inward deformation near the mouse
-    vec2 inward_deformation = -direction_to_mouse * mouse_influence * poke_strength * max(0.0, 1.0 - distance_from_center / bubble_radius);
-
-    // Subtle outward deformation to balance (reduce this to focus on inward pull)
-    vec2 outward_deformation = direction_to_uv * mouse_influence * poke_strength * 0.2;
-
-    // Combine inward and outward deformations
-    vec2 deformation = inward_deformation + outward_deformation;
-
-    // Modify the bubble boundary
-    float deformation_effect = dot(deformation, direction_to_uv);
-    float bubble_edge = bubble_radius - distance_from_center + deformation_effect;
-
-    // Render bubble with circular clipping
-    if (bubble_edge > 0.0) {
-        COLOR = vec4(0.6, 0.8, 1.0, 1.0); // Light blue bubble color
-    } else {
-        discard; // Transparent outside the bubble
+    // Ensure the alpha doesn't extend outside the texture boundaries
+    if (uv.x < 0.0 || uv.x > 1.0 || uv.y < 0.0 || uv.y > 1.0) {
+        COLOR.a = 0.0;
     }
 }

@@ -1,11 +1,49 @@
-[gd_scene load_steps=8 format=3 uid="uid://dkbvnd0gm27f5"]
+[gd_scene load_steps=26 format=3 uid="uid://dkbvnd0gm27f5"]
 
 [ext_resource type="Script" path="res://BubbleCharacter/bubble.gd" id="1_rj0dg"]
+[ext_resource type="Shader" path="res://BubbleCharacter/bubble.gdshader" id="2_5f4cv"]
+[ext_resource type="Texture2D" uid="uid://qxv3mq6tj8qk" path="res://Assets/Sprites/bubblepop.png" id="3_jnewh"]
 [ext_resource type="Texture2D" uid="uid://baiit73redhoc" path="res://Assets/Sprites/bubble.png" id="3_x1r5e"]
+[ext_resource type="Texture2D" uid="uid://8yt22n4yv0g2" path="res://Assets/Sprites/happy-bubble.png" id="4_mv033"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dlp5g"]
+shader = ExtResource("2_5f4cv")
+shader_parameter/progress = 0.0
+shader_parameter/meltness = 0.848
+shader_parameter/wave_frequency = 20.0
+shader_parameter/speed = 1.338
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a028v"]
 atlas = ExtResource("3_x1r5e")
 region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sl1a7"]
+atlas = ExtResource("3_jnewh")
+region = Rect2(0, 0, 39, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_krt8t"]
+atlas = ExtResource("3_jnewh")
+region = Rect2(39, 0, 39, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xxkcc"]
+atlas = ExtResource("3_jnewh")
+region = Rect2(78, 0, 39, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8sbh1"]
+atlas = ExtResource("3_jnewh")
+region = Rect2(117, 0, 39, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k1cfr"]
+atlas = ExtResource("3_jnewh")
+region = Rect2(156, 0, 39, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mnu7b"]
+atlas = ExtResource("3_jnewh")
+region = Rect2(195, 0, 39, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lo62f"]
+atlas = ExtResource("3_jnewh")
+region = Rect2(234, 0, 39, 37)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_es4sl"]
 animations = [{
@@ -14,7 +52,33 @@ animations = [{
 "texture": SubResource("AtlasTexture_a028v")
 }],
 "loop": true,
-"name": &"default",
+"name": &"idle",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sl1a7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_krt8t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xxkcc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8sbh1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k1cfr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mnu7b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lo62f")
+}],
+"loop": true,
+"name": &"pop",
 "speed": 5.0
 }]
 
@@ -25,10 +89,102 @@ radius = 12.1655
 resource_name = "death"
 step = 0.2
 
+[sub_resource type="Animation" id="Animation_qk035"]
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["idle"]
+}
+
+[sub_resource type="Animation" id="Animation_lawnj"]
+length = 1.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["pop"]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.26667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"end_bubble"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_q3e0w"]
 _data = {
-"death": SubResource("Animation_qv8gx")
+"death": SubResource("Animation_qv8gx"),
+"idle": SubResource("Animation_qk035"),
+"pop": SubResource("Animation_lawnj")
 }
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rlgd7"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_c23vd"]
+animation = &"pop"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_og4yi"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cwei6"]
+advance_mode = 2
+advance_condition = &"dead"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_5chby"]
+allow_transition_to_self = true
+states/idle/node = SubResource("AnimationNodeAnimation_rlgd7")
+states/idle/position = Vector2(333.5, 98)
+states/pop/node = SubResource("AnimationNodeAnimation_c23vd")
+states/pop/position = Vector2(522.5, 99.5)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_og4yi"), "idle", "pop", SubResource("AnimationNodeStateMachineTransition_cwei6")]
 
 [node name="Bubble" type="CharacterBody2D" groups=["Player", "player"]]
 z_index = 1
@@ -37,16 +193,15 @@ motion_mode = 1
 script = ExtResource("1_rj0dg")
 shrinking_factor = 0.03
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture_filter = 1
-texture = ExtResource("3_x1r5e")
-hframes = 2
-vframes = 2
-frame = 2
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
+material = SubResource("ShaderMaterial_dlp5g")
 sprite_frames = SubResource("SpriteFrames_es4sl")
+animation = &"idle"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("4_mv033")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_j25y8")
@@ -55,3 +210,8 @@ shape = SubResource("CircleShape2D_j25y8")
 libraries = {
 "": SubResource("AnimationLibrary_q3e0w")
 }
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_5chby")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/dead = false
