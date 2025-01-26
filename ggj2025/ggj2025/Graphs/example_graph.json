@@ -5,7 +5,6 @@
 		{ "id": 2, "type": "Normal" },
 		{ "id": 3, "type": "Pump" },
 		{ "id": 4, "type": "Normal" },
-		{ "id": 5, "type": "Coin" },
 		{ "id": 6, "type": "Normal" },
 		{ "id": 7, "type": "Final" }
 	],
@@ -14,7 +13,6 @@
 		{ "from": 1, "to": 2 },
 		{ "from": 2, "to": 3 },
 		{ "from": 2, "to": 4 },
-		{ "from": 4, "to": 5 },
 		{ "from": 4, "to": 6 },
 		{ "from": 6, "to": 7 }
 	]

@@ -5,15 +5,18 @@ extends Node2D
 
 @export var character_scene: PackedScene
 var current_room_id: int = -1
+var player
 
 
 func _ready():
+	print(player)
 	var start_id = _get_starting_room_id()
 	current_room_id = start_id
 	
 	if character_scene:
 		var character_instance = character_scene.instantiate() as Node2D
 		add_child(character_instance) 
+		player = character_instance
 		character_instance.position = _get_room_center(current_room_id)
 		
 	_center_camera_on_room(start_id)
@@ -23,7 +26,32 @@ func on_player_door_transition(from_room_id: int, to_room_id: int) -> void:
 		return
 		
 	current_room_id = to_room_id
+	_offset_player_position(from_room_id, to_room_id)
 	_center_camera_on_room(to_room_id)
+
+func _offset_player_position(from_room_id: int, to_room_id: int) -> void:	
+	var assigned_rooms = generator.assigned_rooms
+	if not assigned_rooms.has(from_room_id) or not assigned_rooms.has(to_room_id):
+		return
+
+	var from_room = assigned_rooms[from_room_id]
+	var to_room = assigned_rooms[to_room_id]
+	var from_gx = from_room["grid_x"]
+	var from_gy = from_room["grid_y"]
+	var to_gx = to_room["grid_x"]
+	var to_gy = to_room["grid_y"]
+
+	var offset = Vector2.ZERO
+	if to_gx > from_gx:  # Moving right
+		offset = Vector2(70, 0)
+	elif to_gx < from_gx:  # Moving left
+		offset = Vector2(-70, 0)
+	elif to_gy > from_gy:  # Moving down
+		offset = Vector2(0, 70)
+	elif to_gy < from_gy:  # Moving up
+		offset = Vector2(0, -70)
+
+	player.position += offset
 
 func _center_camera_on_room(room_id: int) -> void:
 	var assigned_rooms = generator.assigned_rooms

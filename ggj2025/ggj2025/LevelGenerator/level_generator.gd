@@ -9,8 +9,8 @@ var node_list: Array = []
 
 # We'll define our "room grid size"
 # If each room is 10x8 tiles, for instance, or if you want some spacing:
-@export var tile_width: int = 640
-@export var tile_height: int = 360
+@export var tile_width: int = 704
+@export var tile_height: int = 448
 
 func _ready() -> void:
 	var path = "res://Graphs/example_graph.json"

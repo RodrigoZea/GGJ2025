@@ -15,10 +15,12 @@ _data = {
 "death": SubResource("Animation_qv8gx")
 }
 
-[node name="Bubble" type="CharacterBody2D" groups=["player"]]
+[node name="Bubble" type="CharacterBody2D" groups=["Player", "player"]]
+z_index = 1
 scale = Vector2(1.3, 1.3)
+motion_mode = 1
 script = ExtResource("1_rj0dg")
-shrinking_factor = 0.03
+shrinking_factor = 0.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1

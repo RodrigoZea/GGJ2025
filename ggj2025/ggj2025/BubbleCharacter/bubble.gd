@@ -48,7 +48,7 @@ func _physics_process(delta):
 	#print("Velocity: ", velocity)
 	#print("Global Position: ", global_position)
 	#print("Distance to Mouse: ", global_position.distance_to(mouse_pos))
-	print(scale.length())
+	#print(scale.length())
 	
 func shrinking(delta) -> void:
 	scale = Vector2(scale.x - shrinking_factor * delta, scale.y - shrinking_factor * delta)

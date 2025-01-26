@@ -7,9 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://b5dj1j2lqs1tb" path="res://Obstacles/Pipes/Pipe2.tscn" id="3_upg11"]
 [ext_resource type="PackedScene" uid="uid://jhtqb6vx7nqw" path="res://Obstacles/Pipes/Pipe3.tscn" id="6_qydcp"]
 [ext_resource type="PackedScene" uid="uid://dya6lvwgns5gm" path="res://Soap/Soap.tscn" id="7_ghqyc"]
-[ext_resource type="PackedScene" uid="uid://1pivojsyh2ep" path="res://Obstacles/Pipes/Pipe6.tscn" id="8_1i0wu"]
+[ext_resource type="PackedScene" path="res://Obstacles/Pipes/Pipe6.tscn" id="8_1i0wu"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_om5ie"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5bsmq"]
 texture = ExtResource("1_te7wt")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
@@ -27,7 +27,7 @@ texture_region_size = Vector2i(32, 32)
 
 [sub_resource type="TileSet" id="TileSet_0um8o"]
 tile_size = Vector2i(32, 32)
-sources/0 = SubResource("TileSetAtlasSource_om5ie")
+sources/0 = SubResource("TileSetAtlasSource_5bsmq")
 
 [node name="Node2D" type="Node2D"]
 
