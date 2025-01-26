@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cw210e4j06qqj"]
+[gd_scene load_steps=4 format=3 uid="uid://cw210e4j06qqj"]
 
 [ext_resource type="Script" path="res://GameManager/game_manager.gd" id="1_6mp35"]
 [ext_resource type="PackedScene" uid="uid://dkbvnd0gm27f5" path="res://BubbleCharacter/Bubble.tscn" id="2_phppn"]
+[ext_resource type="AudioStream" uid="uid://kcbbweinotua" path="res://Assets/Music/Main theme Retro.mp3" id="3_2qaub"]
 
 [node name="GameManager" type="Node2D"]
 script = ExtResource("1_6mp35")
@@ -9,3 +10,11 @@ character_scene = ExtResource("2_phppn")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-2, 0)
+
+[node name="TransitionTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_2qaub")
+autoplay = true

@@ -2,11 +2,12 @@ extends Node2D
 
 @onready var camera = $Camera2D
 @onready var generator = get_tree().get_first_node_in_group("Generator")
-
+@onready var transition_timer = $TransitionTimer
 @export var character_scene: PackedScene
 var current_room_id: int = -1
 var player
 var visited_rooms: Dictionary = {}
+var can_transition_to_room = true
 signal room_changed
 
 func _ready():
@@ -14,6 +15,7 @@ func _ready():
 	var start_id = _get_starting_room_id()
 	current_room_id = start_id
 	GameManager.visited_rooms = { 0: true } 
+	transition_timer.connect("timeout", _on_timer_timeout)
 	
 	if character_scene:
 		var character_instance = character_scene.instantiate() as Node2D
@@ -23,13 +25,21 @@ func _ready():
 		
 	_center_camera_on_room(start_id)
 
+func _on_timer_timeout() -> void:
+	can_transition_to_room = true
+
 func on_player_door_transition(from_room_id: int, to_room_id: int) -> void:
+	if not can_transition_to_room:
+		return
+	
 	if current_room_id == to_room_id:
 		return
 		
 	set_current_room(to_room_id)
 	_offset_player_position(from_room_id, to_room_id)
 	_center_camera_on_room(to_room_id)
+	can_transition_to_room = false
+	transition_timer.start()
 
 func set_current_room(room_id: int):
 	current_room_id = room_id
