@@ -11,12 +11,16 @@ var last_mouse_pos: Vector2 = Vector2.ZERO
 var idle_sprite = preload("res://Assets/Sprites/happy-bubble.png")
 var moving_sprite = preload("res://Assets/Sprites/happiest-bubble.png")
 var can_move = true 
+var gm
 signal popped
 
 func _ready():
 	# Initialize last mouse position
-	last_mouse_pos = get_global_mouse_position()
-	GameManager.connect("room_changed", _player_room_changed)
+	last_mouse_pos = get_global_mouse_position()	
+
+func set_gm(gm_node) -> void:
+	gm = gm_node
+	gm.connect("room_changed", _player_room_changed)
 
 func _physics_process(delta):
 	if not can_move:

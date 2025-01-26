@@ -17,6 +17,8 @@
 [ext_resource type="Resource" uid="uid://cpokvu71564u2" path="res://Rooms/RoomResources/Final/final4.tres" id="19_21r3u"]
 
 [node name="LevelGenerator" type="Node2D" groups=["Generator"]]
+z_index = 1
+z_as_relative = false
 script = ExtResource("1_abljm")
 room_pool = {
 "Final": [ExtResource("16_bqyd2"), ExtResource("17_b1766"), ExtResource("18_irvna"), ExtResource("19_21r3u")],

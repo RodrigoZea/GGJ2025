@@ -186,11 +186,12 @@ states/pop/position = Vector2(522.5, 99.5)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_og4yi"), "idle", "pop", SubResource("AnimationNodeStateMachineTransition_cwei6")]
 
 [node name="Bubble" type="CharacterBody2D" groups=["Player", "player"]]
-z_index = 1
+z_index = 2
+z_as_relative = false
 scale = Vector2(1.3, 1.3)
 motion_mode = 1
 script = ExtResource("1_rj0dg")
-shrinking_factor = 0.03
+shrinking_factor = 0.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1

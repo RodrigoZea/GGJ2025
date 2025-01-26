@@ -5,6 +5,7 @@ class_name Minimap
 @export var offset_x := 10
 @export var offset_y := 10
 @onready var generator = get_tree().get_first_node_in_group("Generator")
+var gm
 
 var min_gx: int = 999999
 var min_gy: int = 999999
@@ -12,7 +13,11 @@ var min_gy: int = 999999
 func _ready():
 	#_compute_min_coords()
 	_center_minimap()
-	GameManager.connect("room_changed", _on_room_changed)
+	queue_redraw()
+
+func set_gm(gm_node) -> void:
+	gm = gm_node
+	gm.connect("room_changed", _on_room_changed)
 	queue_redraw()
 
 func reset():
@@ -73,11 +78,14 @@ func _on_room_changed(new_room_id: int):
 	queue_redraw()
 
 func _draw():
+	if gm == null:
+		return
+	
 	# Gather references
 	var assigned_rooms = generator.assigned_rooms
-	var visited_rooms = GameManager.visited_rooms
+	var visited_rooms = gm.visited_rooms
 	var adjacency_map = generator.adjacency_map
-	var current_room_id = GameManager.current_room_id
+	var current_room_id = gm.current_room_id
 	
 	if not assigned_rooms.has(current_room_id):
 		return

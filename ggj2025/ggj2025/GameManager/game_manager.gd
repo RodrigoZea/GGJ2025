@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var camera = $Camera2D
 @onready var generator = get_tree().get_first_node_in_group("Generator")
+@onready var minimap = get_tree().get_first_node_in_group("Minimap")
 @onready var transition_timer = $TransitionTimer
 @onready var level = get_tree().get_first_node_in_group("Level")
 @onready var retry_button = $CanvasLayer/GameOverOverlay/ColorRect/MarginContainer/VBoxContainer/Button
@@ -19,16 +20,23 @@ func _ready():
 	visited_rooms = { 0: true } 
 	level.connect("reset_complete", _on_level_reset_complete)
 	transition_timer.connect("timeout", _on_timer_timeout)
+	var spawn_position = _retrieve_spawn_position(start_id)
 	
 	if character_scene:
 		var character_instance = character_scene.instantiate() as Node2D
-		level.add_child(character_instance) 
+		get_tree().get_root().add_child(character_instance) 
 		player = character_instance
-		character_instance.position = _get_room_center(current_room_id)
+		character_instance.set_gm(self)
+		character_instance.position = spawn_position
+		print("character spawned at: ", character_instance.position)
+		
+	print("room center: ", _get_room_center(current_room_id))
+	
 		
 	player.connect("popped", _on_game_over)
 	retry_button.connect("pressed", _retry)
 	_center_camera_on_room(start_id, false)
+	minimap.set_gm(self)
 
 func _on_game_over() -> void:
 	$CanvasLayer/GameOverOverlay.visible = true
@@ -52,10 +60,11 @@ func reset():
 		player.queue_free()
 		player = null
 
-	# Reset and reinitialize the level
+	if generator:
+		generator.reset()
+
 	if level:
-		level.reset()
-		
+		level.reset()		
 
 func _on_level_reset_complete() -> void:
 	print("Level reset complete.")
@@ -66,6 +75,23 @@ func _on_level_reset_complete() -> void:
 	visited_rooms[current_room_id] = true
 
 	# Retrieve the starting room instance
+	var spawn_position = _retrieve_spawn_position(start_id)
+
+	# Reinitialize the player
+	if character_scene:
+		var character_instance = character_scene.instantiate() as Node2D
+		get_tree().get_root().add_child(character_instance)
+		player = character_instance
+		player.position = spawn_position
+		player.set_gm(self)
+		# Reconnect player signals
+		player.connect("popped", _on_game_over)
+
+	# Reset camera position
+	_center_camera_on_room(current_room_id, false)
+
+
+func _retrieve_spawn_position(start_id) -> Vector2:
 	var spawn_position = Vector2.ZERO
 	if generator.assigned_rooms.has(start_id):
 		var starting_room = generator.assigned_rooms[start_id].get("room_instance")
@@ -73,28 +99,10 @@ func _on_level_reset_complete() -> void:
 			var spawn_point = starting_room.get_node_or_null("SpawnPoint")
 			if spawn_point:
 				spawn_position = spawn_point.global_position
-				print("Spawn Point Found:", spawn_position)
-			else:
-				print("SpawnPoint not found in room", start_id)
-		else:
-			print("Room instance not found for room", start_id)
 	else:
-		print("Starting room not assigned. Falling back to room center.")
 		spawn_position = _get_room_center(start_id)
-
-	# Reinitialize the player
-	if character_scene:
-		var character_instance = character_scene.instantiate() as Node2D
-		level.add_child(character_instance)
-		player = character_instance
-		player.position = spawn_position
-
-		# Reconnect player signals
-		player.connect("popped", _on_game_over)
-
-	# Reset camera position
-	_center_camera_on_room(current_room_id, false)
-
+		
+	return spawn_position
 
 func _on_timer_timeout() -> void:
 	can_transition_to_room = true
@@ -180,4 +188,5 @@ func _get_starting_room_id() -> int:
 	for node_info in nodes:
 		if node_info["type"] == "Starting":
 			return int(node_info["id"])
+
 	return 0  

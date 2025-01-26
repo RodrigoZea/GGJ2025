@@ -6,7 +6,9 @@
 [ext_resource type="FontFile" uid="uid://cqbs0ft8gosik" path="res://Assets/Fonts/C&C Red Alert [INET].ttf" id="4_vrgm1"]
 [ext_resource type="FontFile" uid="uid://cwdtnw6wju32v" path="res://Assets/Fonts/eight-bit-dragon.otf" id="5_yxut2"]
 
-[node name="GameManager" type="Node2D"]
+[node name="GameManager" type="Node2D" groups=["GameManager"]]
+z_index = 2
+z_as_relative = false
 script = ExtResource("1_6mp35")
 character_scene = ExtResource("2_phppn")
 

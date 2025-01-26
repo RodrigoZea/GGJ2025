@@ -1,12 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://dv5f5nxy1yq5n"]
+[gd_scene load_steps=8 format=3 uid="uid://dv5f5nxy1yq5n"]
 
 [ext_resource type="Script" path="res://UI/Menu/menu.gd" id="1_nvd6g"]
 [ext_resource type="FontFile" uid="uid://cqbs0ft8gosik" path="res://Assets/Fonts/C&C Red Alert [INET].ttf" id="1_rarlh"]
 [ext_resource type="FontFile" uid="uid://cwdtnw6wju32v" path="res://Assets/Fonts/eight-bit-dragon.otf" id="2_qx2ki"]
+[ext_resource type="PackedScene" uid="uid://cw210e4j06qqj" path="res://GameManager/GameManager.tscn" id="2_s7b6o"]
 [ext_resource type="AudioStream" uid="uid://beium7f0l33gb" path="res://Assets/Music/Menu Retro.mp3" id="3_bs2j8"]
+[ext_resource type="PackedScene" uid="uid://dqf1egis3dyty" path="res://Level/Level.tscn" id="3_qh2jl"]
+[ext_resource type="PackedScene" uid="uid://djjmau8xcv6nm" path="res://LevelGenerator/LevelGenerator.tscn" id="4_tv4qh"]
 
 [node name="Menu" type="CanvasLayer"]
 script = ExtResource("1_nvd6g")
+game_manager_scene = ExtResource("2_s7b6o")
+level_scene = ExtResource("3_qh2jl")
+level_generator_scene = ExtResource("4_tv4qh")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
