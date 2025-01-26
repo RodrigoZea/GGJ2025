@@ -64,7 +64,7 @@ func reset():
 	visited_rooms.clear()
 	can_transition_to_room = true
 	$CanvasLayer/GameOverOverlay.visible = false  # Hide the Game Over overlay
-	$CanvasLayer/VictoryScreen.visible = false
+	#$CanvasLayer/VictoryScreen.visible = false
 	$AudioStreamPlayer2D.play(0.0)
 	
 	# Reset the player
