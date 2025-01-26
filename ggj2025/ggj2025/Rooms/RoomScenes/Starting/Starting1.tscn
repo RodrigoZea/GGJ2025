@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://yrunhvgjn678"]
+[gd_scene load_steps=17 format=4 uid="uid://yrunhvgjn678"]
 
 [ext_resource type="Script" path="res://Rooms/Room.gd" id="1_kbjat"]
 [ext_resource type="Texture2D" uid="uid://cqrq43cty6urg" path="res://Assets/Sprites/background.png" id="2_0r343"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://jhtqb6vx7nqw" path="res://Obstacles/Pipes/Pipe3.tscn" id="7_pnutr"]
 [ext_resource type="PackedScene" uid="uid://drps8ipcsc25r" path="res://Obstacles/Pipes/Pipe4.tscn" id="8_wbr3x"]
 [ext_resource type="PackedScene" uid="uid://di3tohf5u2ua7" path="res://Obstacles/PipeLeak/PipeLeak.tscn" id="9_o6mqa"]
+[ext_resource type="PackedScene" uid="uid://dvod77m8i0ui0" path="res://Obstacles/Rat/Rat.tscn" id="11_053s1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dabdu"]
 texture = ExtResource("2_0r343")
