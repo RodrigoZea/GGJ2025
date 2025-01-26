@@ -6,6 +6,7 @@ extends Node2D
 @onready var transition_timer = $TransitionTimer
 @onready var level = get_tree().get_first_node_in_group("Level")
 @onready var retry_button = $CanvasLayer/GameOverOverlay/ColorRect/MarginContainer/VBoxContainer/Button
+@onready var exit_button = $CanvasLayer/GameOverOverlay/ColorRect/MarginContainer/VBoxContainer/Button2
 @export var character_scene: PackedScene
 
 var current_room_id: int = -1
@@ -36,6 +37,7 @@ func _ready():
 	player.connect("popped", _on_game_over)
 	player.connect("victory", _show_victory_screen)
 	retry_button.connect("pressed", _retry)
+	exit_button.connect("pressed", _exit)
 	_center_camera_on_room(start_id, false)
 	minimap.set_gm(self)
 
@@ -51,6 +53,9 @@ func _on_victory() -> void:
 
 func _show_victory_screen() -> void:
 	$CanvasLayer/AnimationPlayer.play("fade_in_victory_screen")
+
+func _exit() -> void:
+	get_tree().quit()
 
 func _retry() -> void:
 	level.reset()
