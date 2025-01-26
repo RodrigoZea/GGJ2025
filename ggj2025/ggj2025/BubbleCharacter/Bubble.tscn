@@ -77,9 +77,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_lo62f")
 }],
-"loop": true,
+"loop": false,
 "name": &"pop",
-"speed": 5.0
+"speed": 12.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j25y8"]
@@ -117,8 +117,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_lawnj"]
-length = 1.4
-loop_mode = 1
+length = 0.583333
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -126,7 +125,7 @@ tracks/0/path = NodePath("AnimatedSprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2),
+"times": PackedFloat32Array(0, 0.0833333, 0.166667, 0.25, 0.333333, 0.416667, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5, 6]

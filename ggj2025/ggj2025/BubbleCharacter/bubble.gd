@@ -10,13 +10,18 @@ var last_mouse_pos: Vector2 = Vector2.ZERO
 @onready var collision_shape = $CollisionShape2D
 var idle_sprite = preload("res://Assets/Sprites/happy-bubble.png")
 var moving_sprite = preload("res://Assets/Sprites/happiest-bubble.png")
- 
+var can_move = true 
+
 func _ready():
 	# Initialize last mouse position
 	last_mouse_pos = get_global_mouse_position()
 	GameManager.connect("room_changed", _player_room_changed)
 
 func _physics_process(delta):
+	if not can_move:
+		_reset_velocity() 
+		return
+	
 	if (scale.length() < 0.6):
 		die()
 	
@@ -66,12 +71,17 @@ func expand(expand_factor: float) -> void:
 	scale = Vector2(expand_factor, expand_factor)
 
 func _player_room_changed(new_room_id: int) -> void:
-	print("room changed")
+	_reset_velocity() 
+
+func _reset_velocity() -> void:
 	velocity = Vector2.ZERO
 	move_and_slide()
 
 func die() -> void:
+	$Sprite2D.visible = false
 	animation_tree["parameters/conditions/dead"] = true
+	can_move = false
+	_reset_velocity() 
 
 func end_bubble() -> void:
 	queue_free()
