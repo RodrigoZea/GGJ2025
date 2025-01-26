@@ -42,17 +42,6 @@ func _center_minimap():
 		var parent_size = parent_control.size
 		position = (parent_size - size) * 0.5
 
-		# DEBUG: Print all calculations
-		print("Parent Control Size:", parent_size)
-		print("Minimap Size:", size)
-		print("Calculated Minimap Position:", position)
-		
-		
-		print("Parent Control Size:", parent_control.size)
-		print("Parent Control Anchors:", parent_control.anchor_top, parent_control.anchor_left, parent_control.anchor_bottom, parent_control.anchor_right)
-	
-
-
 
 func _compute_min_coords():
 	var assigned_rooms = generator.assigned_rooms
