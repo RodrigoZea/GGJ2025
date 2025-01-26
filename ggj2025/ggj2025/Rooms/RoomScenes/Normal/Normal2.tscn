@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://bswbdf5lb603k"]
+[gd_scene load_steps=16 format=4 uid="uid://bswbdf5lb603k"]
 
 [ext_resource type="Script" path="res://Rooms/Room.gd" id="1_ofe1r"]
 [ext_resource type="Texture2D" uid="uid://cqrq43cty6urg" path="res://Assets/Sprites/background.png" id="2_1m8xp"]
@@ -6,6 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://jqlq07p0mgfs" path="res://Doors/door_left.tscn" id="3_8mlwh"]
 [ext_resource type="PackedScene" uid="uid://b5dj1j2lqs1tb" path="res://Obstacles/Pipes/Pipe2.tscn" id="5_wcaks"]
 [ext_resource type="PackedScene" uid="uid://t5cis28rw13w" path="res://Obstacles/Pipes/Pipe1.tscn" id="6_rdpuh"]
+[ext_resource type="PackedScene" uid="uid://btqq237b7bwfk" path="res://Obstacles/Pipes/Pipe7.tscn" id="7_sndal"]
+[ext_resource type="PackedScene" uid="uid://c8wowa2gm3xj8" path="res://Obstacles/Pipes/Pipe9.tscn" id="8_hdp4w"]
+[ext_resource type="PackedScene" uid="uid://dobg5tascwq58" path="res://Waterfall/Waterfall.tscn" id="9_wg82f"]
+[ext_resource type="PackedScene" uid="uid://di3tohf5u2ua7" path="res://Obstacles/PipeLeak/PipeLeak.tscn" id="10_cec13"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4ei10"]
 texture = ExtResource("2_1m8xp")
@@ -76,7 +80,22 @@ tile_map_data = PackedByteArray("AAD1//n/AAACAAAAAAD2//n/AAACAAAAAAD3//n/AAACAAA
 tile_set = SubResource("TileSet_w1o3v")
 
 [node name="Pipe2" parent="." instance=ExtResource("5_wcaks")]
-position = Vector2(-328, -194)
+position = Vector2(7, 195)
+rotation = 3.14159
 
 [node name="Pipe1" parent="." instance=ExtResource("6_rdpuh")]
-position = Vector2(105, 118)
+position = Vector2(105, 129)
+
+[node name="Pipe7" parent="." instance=ExtResource("7_sndal")]
+position = Vector2(-46, 19)
+
+[node name="Pipe9" parent="." instance=ExtResource("8_hdp4w")]
+position = Vector2(104, -101)
+rotation = 3.14159
+
+[node name="Waterfall" parent="." instance=ExtResource("9_wg82f")]
+position = Vector2(-177, 12)
+
+[node name="PipeLeak" parent="." instance=ExtResource("10_cec13")]
+position = Vector2(3, -48)
+rotation = 0.497419
