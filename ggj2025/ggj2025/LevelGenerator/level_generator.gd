@@ -16,6 +16,21 @@ func _ready() -> void:
 	var path = "res://Graphs/example_graph.json"
 	generate_level(path)
 
+func reset():
+	print("Resetting LevelGenerator...")
+	
+	# Clear variables
+	assigned_rooms.clear()
+	adjacency_map.clear()
+	node_list.clear()
+	
+	# Remove existing children (e.g., previously spawned rooms)
+	for child in get_children():
+		child.queue_free()
+	
+	# Re-run the level generation process
+	var path = "res://Graphs/example_graph.json"
+	generate_level(path)
 
 func generate_level(json_path: String) -> void:
 	var flow_data = _load_flow(json_path)
@@ -39,7 +54,6 @@ func generate_level(json_path: String) -> void:
 	var dungeon = _spawn_rooms()
 	add_child(dungeon)
 	_setup_doors(dungeon)
-
 
 #
 # STEP 1: LOAD JSON
@@ -278,7 +292,7 @@ func _spawn_rooms() -> Node2D:
 
 		# Optional: store adjacency or node ID in the instance
 		# instance.set_meta("node_id", int_id)
-
+		assigned_rooms[int_id]["room_instance"] = instance
 		# We'll add the instance first
 		root.add_child(instance)
 

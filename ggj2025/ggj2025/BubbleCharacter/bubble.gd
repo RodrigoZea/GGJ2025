@@ -11,6 +11,7 @@ var last_mouse_pos: Vector2 = Vector2.ZERO
 var idle_sprite = preload("res://Assets/Sprites/happy-bubble.png")
 var moving_sprite = preload("res://Assets/Sprites/happiest-bubble.png")
 var can_move = true 
+signal popped
 
 func _ready():
 	# Initialize last mouse position
@@ -84,7 +85,7 @@ func die() -> void:
 	_reset_velocity() 
 
 func end_bubble() -> void:
-	queue_free()
+	emit_signal("popped")
 
 func _update_sprite() -> void:
 	if velocity.length() > 0.3:

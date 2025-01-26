@@ -106,3 +106,5 @@ rotation = 3.73326
 [node name="PipeLeak3" parent="." instance=ExtResource("9_o6mqa")]
 position = Vector2(-125, -78)
 rotation = 2.98626
+
+[node name="SpawnPoint" type="Node2D" parent="."]

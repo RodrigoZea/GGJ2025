@@ -3,7 +3,10 @@ extends Node2D
 @onready var camera = $Camera2D
 @onready var generator = get_tree().get_first_node_in_group("Generator")
 @onready var transition_timer = $TransitionTimer
+@onready var level = get_tree().get_first_node_in_group("Level")
+@onready var retry_button = $CanvasLayer/GameOverOverlay/ColorRect/MarginContainer/VBoxContainer/Button
 @export var character_scene: PackedScene
+
 var current_room_id: int = -1
 var player
 var visited_rooms: Dictionary = {}
@@ -14,16 +17,85 @@ func _ready():
 	print(player)
 	var start_id = _get_starting_room_id()
 	current_room_id = start_id
-	GameManager.visited_rooms = { 0: true } 
+	visited_rooms = { 0: true } 
+	level.connect("reset_complete", _on_level_reset_complete)
 	transition_timer.connect("timeout", _on_timer_timeout)
 	
 	if character_scene:
 		var character_instance = character_scene.instantiate() as Node2D
-		add_child(character_instance) 
+		level.add_child(character_instance) 
 		player = character_instance
 		character_instance.position = _get_room_center(current_room_id)
 		
-	_center_camera_on_room(start_id)
+	player.connect("popped", _on_game_over)
+	retry_button.connect("pressed", _retry)
+	_center_camera_on_room(start_id, false)
+
+func _on_game_over() -> void:
+	$CanvasLayer/GameOverOverlay.visible = true
+
+func _retry() -> void:
+	level.reset()
+	reset()
+
+func reset():
+	print("Resetting GameManager...")
+
+	# Reset room state
+	current_room_id = -1
+	visited_rooms.clear()
+	can_transition_to_room = true
+	$CanvasLayer/GameOverOverlay.visible = false  # Hide the Game Over overlay
+	$AudioStreamPlayer2D.play(0.0)
+	
+	# Reset the player
+	if player:
+		player.queue_free()
+		player = null
+
+	# Reset and reinitialize the level
+	if level:
+		level.reset()
+		
+
+func _on_level_reset_complete() -> void:
+	print("Level reset complete.")
+
+	# Get the starting room's ID
+	var start_id = _get_starting_room_id()
+	current_room_id = start_id
+	visited_rooms[current_room_id] = true
+
+	# Retrieve the starting room instance
+	var spawn_position = Vector2.ZERO
+	if generator.assigned_rooms.has(start_id):
+		var starting_room = generator.assigned_rooms[start_id].get("room_instance")
+		if starting_room:
+			var spawn_point = starting_room.get_node_or_null("SpawnPoint")
+			if spawn_point:
+				spawn_position = spawn_point.global_position
+				print("Spawn Point Found:", spawn_position)
+			else:
+				print("SpawnPoint not found in room", start_id)
+		else:
+			print("Room instance not found for room", start_id)
+	else:
+		print("Starting room not assigned. Falling back to room center.")
+		spawn_position = _get_room_center(start_id)
+
+	# Reinitialize the player
+	if character_scene:
+		var character_instance = character_scene.instantiate() as Node2D
+		level.add_child(character_instance)
+		player = character_instance
+		player.position = spawn_position
+
+		# Reconnect player signals
+		player.connect("popped", _on_game_over)
+
+	# Reset camera position
+	_center_camera_on_room(current_room_id, false)
+
 
 func _on_timer_timeout() -> void:
 	can_transition_to_room = true
@@ -37,7 +109,7 @@ func on_player_door_transition(from_room_id: int, to_room_id: int) -> void:
 		
 	set_current_room(to_room_id)
 	_offset_player_position(from_room_id, to_room_id)
-	_center_camera_on_room(to_room_id)
+	_center_camera_on_room(to_room_id, true)
 	can_transition_to_room = false
 	transition_timer.start()
 
@@ -71,7 +143,7 @@ func _offset_player_position(from_room_id: int, to_room_id: int) -> void:
 
 	player.position += offset
 
-func _center_camera_on_room(room_id: int) -> void:
+func _center_camera_on_room(room_id: int, tween_move: bool) -> void:
 	var assigned_rooms = generator.assigned_rooms
 	var tw = generator.tile_width
 	var th = generator.tile_height
@@ -87,8 +159,11 @@ func _center_camera_on_room(room_id: int) -> void:
 	var room_center = Vector2(gx * tw, gy * th)
 	
 	if camera:
-		var tween = create_tween()
-		tween.tween_property(camera, "position", room_center, 0.5)
+		if tween_move:
+			var tween = create_tween()
+			tween.tween_property(camera, "position", room_center, 0.5)
+		else:
+			camera.position = room_center
 
 func _get_room_center(room_id: int) -> Vector2:
 	var assigned_rooms = generator.assigned_rooms

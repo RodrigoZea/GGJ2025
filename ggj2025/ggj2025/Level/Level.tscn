@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://dqf1egis3dyty"]
+[gd_scene load_steps=4 format=3 uid="uid://dqf1egis3dyty"]
 
+[ext_resource type="Script" path="res://Level/level.gd" id="1_3ead8"]
 [ext_resource type="PackedScene" uid="uid://djjmau8xcv6nm" path="res://LevelGenerator/LevelGenerator.tscn" id="1_ggj5t"]
 [ext_resource type="PackedScene" uid="uid://b825i6v3yufa5" path="res://Minimap/Minimap.tscn" id="2_l14dt"]
 
-[node name="Level" type="Node2D"]
+[node name="Level" type="Node2D" groups=["Level"]]
+script = ExtResource("1_3ead8")
 
 [node name="LevelGenerator" parent="." instance=ExtResource("1_ggj5t")]
 

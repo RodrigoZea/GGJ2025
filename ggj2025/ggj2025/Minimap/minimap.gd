@@ -11,8 +11,24 @@ var min_gy: int = 999999
 
 func _ready():
 	#_compute_min_coords()
-	call_deferred("_center_minimap")
+	_center_minimap()
 	GameManager.connect("room_changed", _on_room_changed)
+	queue_redraw()
+
+func reset():
+	print("Resetting Minimap...")
+	
+	# Clear local state
+	min_gx = 999999
+	min_gy = 999999
+	
+	# Recalculate minimum coordinates
+	_compute_min_coords()
+	
+	# Center the minimap
+	_center_minimap()
+	
+	# Redraw the minimap
 	queue_redraw()
 
 func _center_minimap():
