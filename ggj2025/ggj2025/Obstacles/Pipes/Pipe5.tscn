@@ -1,10 +1,12 @@
 [gd_scene load_steps=5 format=4 uid="uid://dn61cgqbpi4mk"]
 
-[ext_resource type="Texture2D" uid="uid://cuvf64pbhk43o" path="res://Assets/Sprites/pipes.png" id="1_pij7g"]
 [ext_resource type="PackedScene" uid="uid://ct47aoc7ayrs" path="res://Hurtbox/HurtBox.tscn" id="2_lkayf"]
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_t1fed"]
+load_path = "res://.godot/imported/pipes.png-e9c82bec61367c1a62a3d9baee70cdd1.ctex"
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5oaw4"]
-texture = ExtResource("1_pij7g")
+texture = SubResource("CompressedTexture2D_t1fed")
 texture_region_size = Vector2i(32, 32)
 8:0/0 = 0
 9:0/0 = 0
