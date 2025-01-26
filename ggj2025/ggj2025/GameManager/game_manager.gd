@@ -6,12 +6,14 @@ extends Node2D
 @export var character_scene: PackedScene
 var current_room_id: int = -1
 var player
-
+var visited_rooms: Dictionary = {}
+signal room_changed
 
 func _ready():
 	print(player)
 	var start_id = _get_starting_room_id()
 	current_room_id = start_id
+	GameManager.visited_rooms = { 0: true } 
 	
 	if character_scene:
 		var character_instance = character_scene.instantiate() as Node2D
@@ -25,9 +27,14 @@ func on_player_door_transition(from_room_id: int, to_room_id: int) -> void:
 	if current_room_id == to_room_id:
 		return
 		
-	current_room_id = to_room_id
+	set_current_room(to_room_id)
 	_offset_player_position(from_room_id, to_room_id)
 	_center_camera_on_room(to_room_id)
+
+func set_current_room(room_id: int):
+	current_room_id = room_id
+	visited_rooms[room_id] = true
+	emit_signal("room_changed", room_id)
 
 func _offset_player_position(from_room_id: int, to_room_id: int) -> void:	
 	var assigned_rooms = generator.assigned_rooms

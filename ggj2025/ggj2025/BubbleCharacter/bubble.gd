@@ -45,7 +45,7 @@ func _physics_process(delta):
 	#$Sprite2D.material.set_shader_parameter("time", Time.get_ticks_msec() / 1000.0)
 	
 	$AnimatedSprite2D.material.set_shader_parameter("progress", fmod(Time.get_ticks_msec() / 1000.0, 1.0))
-	print(int(Time.get_ticks_msec() / 1000.0) % 1)
+	#print(int(Time.get_ticks_msec() / 1000.0) % 1)
 	_update_sprite()
 	_update_sprite_position(mouse_pos)
 	# Save the current mouse position for the next frame
