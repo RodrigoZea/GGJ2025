@@ -62,6 +62,7 @@ sources/1 = SubResource("TileSetAtlasSource_uqbnt")
 [node name="Pipe1" type="Node2D"]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
+texture_filter = 1
 tile_map_data = PackedByteArray("AAABAAAAAQABAAIAAAACAAAAAQACAAIAAAADAAAAAQACAAIAAAAEAAAAAQADAAIAAAAFAAAAAQACAAIAAAAAAAAAAQAAAAIAAAAAAAEAAQAAAAMAAAAGAAAAAQAEAAIAAAAGAAEAAQAAAAMAAAA=")
 tile_set = SubResource("TileSet_a3btn")
 
