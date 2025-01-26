@@ -9,17 +9,18 @@ var player
 
 
 func _ready():
-	print(player)
-	var start_id = _get_starting_room_id()
-	current_room_id = start_id
-	
-	if character_scene:
-		var character_instance = character_scene.instantiate() as Node2D
-		add_child(character_instance) 
-		player = character_instance
-		character_instance.position = _get_room_center(current_room_id)
-		
-	_center_camera_on_room(start_id)
+	#print(player)
+	#var start_id = _get_starting_room_id()
+	#current_room_id = start_id
+	#
+	#if character_scene:
+		#var character_instance = character_scene.instantiate() as Node2D
+		#add_child(character_instance) 
+		#player = character_instance
+		#character_instance.position = _get_room_center(current_room_id)
+		#
+	#_center_camera_on_room(start_id)
+	pass
 
 func on_player_door_transition(from_room_id: int, to_room_id: int) -> void:
 	if current_room_id == to_room_id:

@@ -1,0 +1,83 @@
+[gd_scene load_steps=5 format=4 uid="uid://dvvwdk7xxarsr"]
+
+[ext_resource type="Texture2D" uid="uid://b7ngyv0ts0h0b" path="res://Assets/Sprites/pipes_new.png" id="1_aohjj"]
+[ext_resource type="PackedScene" uid="uid://ct47aoc7ayrs" path="res://Hurtbox/HurtBox.tscn" id="2_76h08"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uqbnt"]
+texture = ExtResource("1_aohjj")
+texture_region_size = Vector2i(32, 32)
+8:1/0 = 0
+9:1/0 = 0
+10:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+8:2/0 = 0
+10:2/0 = 0
+0:3/0 = 0
+4:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+8:3/0 = 0
+10:3/0 = 0
+11:3/0 = 0
+12:3/0 = 0
+0:4/0 = 0
+4:4/0 = 0
+6:4/0 = 0
+12:4/0 = 0
+0:5/0 = 0
+4:5/0 = 0
+6:5/0 = 0
+7:5/0 = 0
+8:5/0 = 0
+10:5/0 = 0
+11:5/0 = 0
+12:5/0 = 0
+0:6/0 = 0
+1:6/0 = 0
+2:6/0 = 0
+3:6/0 = 0
+4:6/0 = 0
+8:6/0 = 0
+10:6/0 = 0
+3:7/0 = 0
+4:7/0 = 0
+5:7/0 = 0
+6:7/0 = 0
+8:7/0 = 0
+9:7/0 = 0
+10:7/0 = 0
+3:8/0 = 0
+4:8/0 = 0
+5:8/0 = 0
+6:8/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_a3btn"]
+tile_size = Vector2i(32, 32)
+sources/1 = SubResource("TileSetAtlasSource_uqbnt")
+
+[node name="Pipe8" type="Node2D"]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+texture_filter = 1
+tile_map_data = PackedByteArray("AAACAP3/AQACAAIAAAADAP3/AQADAAgAAAABAP3/AQABAAIAAAAAAP3/AQAAAAIAAAAAAP7/AQAAAAQAAAAAAP//AQAAAAMAAAAAAAAAAQAEAAYAAAD//wAAAQACAAIAAAD+/wAAAQABAAIAAAD9/wAAAQAAAAYAAAD9////AQAEAAgAAAA=")
+tile_set = SubResource("TileSet_a3btn")
+
+[node name="HurtBox" parent="." instance=ExtResource("2_76h08")]
+position = Vector2(-32, 13)
+scale = Vector2(-5.581, -1.003)
+
+[node name="HurtBox3" parent="." instance=ExtResource("2_76h08")]
+position = Vector2(-79, -11)
+scale = Vector2(-0.791, -1.608)
+
+[node name="HurtBox4" parent="." instance=ExtResource("2_76h08")]
+position = Vector2(16, -37)
+scale = Vector2(-0.731, -2.923)
+
+[node name="HurtBox2" parent="." instance=ExtResource("2_76h08")]
+position = Vector2(66, -80)
+scale = Vector2(-5.751, -1.053)
