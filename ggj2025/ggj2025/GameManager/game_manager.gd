@@ -21,7 +21,7 @@ func _ready():
 	level.connect("reset_complete", _on_level_reset_complete)
 	transition_timer.connect("timeout", _on_timer_timeout)
 	var spawn_position = _retrieve_spawn_position(start_id)
-	
+
 	if character_scene:
 		var character_instance = character_scene.instantiate() as Node2D
 		get_tree().get_root().add_child(character_instance) 
@@ -29,10 +29,10 @@ func _ready():
 		character_instance.set_gm(self)
 		character_instance.position = spawn_position
 		print("character spawned at: ", character_instance.position)
-		
+
 	print("room center: ", _get_room_center(current_room_id))
-	
-		
+
+
 	player.connect("popped", _on_game_over)
 	player.connect("victory", _show_victory_screen)
 	retry_button.connect("pressed", _retry)
@@ -48,7 +48,7 @@ func _on_victory() -> void:
 	$CanvasLayer/GameOverOverlay/ColorRect/MarginContainer/VBoxContainer/GameOverLabel.set_text("YOU HAVE ESCAPED")
 	$CanvasLayer/GameOverOverlay/ColorRect/MarginContainer/VBoxContainer/Button.set_text("START OVER")
 	$CanvasLayer/GameOverOverlay.visible = true
-	
+
 func _show_victory_screen() -> void:
 	$CanvasLayer/AnimationPlayer.play("fade_in_victory_screen")
 
@@ -64,9 +64,9 @@ func reset():
 	visited_rooms.clear()
 	can_transition_to_room = true
 	$CanvasLayer/GameOverOverlay.visible = false  # Hide the Game Over overlay
-	#$CanvasLayer/VictoryScreen.visible = false
+	$CanvasLayer/VictoryScreen.hide()
 	$AudioStreamPlayer2D.play(0.0)
-	
+
 	# Reset the player
 	if player:
 		player.queue_free()
@@ -98,6 +98,7 @@ func _on_level_reset_complete() -> void:
 		player.set_gm(self)
 		# Reconnect player signals
 		player.connect("popped", _on_game_over)
+		player.connect("victory", _show_victory_screen)
 
 	# Reset camera position
 	_center_camera_on_room(current_room_id, false)
@@ -113,7 +114,7 @@ func _retrieve_spawn_position(start_id) -> Vector2:
 				spawn_position = spawn_point.global_position
 	else:
 		spawn_position = _get_room_center(start_id)
-		
+
 	return spawn_position
 
 	# Reinitialize the player
@@ -137,10 +138,10 @@ func _on_timer_timeout() -> void:
 func on_player_door_transition(from_room_id: int, to_room_id: int) -> void:
 	if not can_transition_to_room:
 		return
-	
+
 	if current_room_id == to_room_id:
 		return
-		
+
 	set_current_room(to_room_id)
 	_offset_player_position(from_room_id, to_room_id)
 	_center_camera_on_room(to_room_id, true)
@@ -191,7 +192,7 @@ func _center_camera_on_room(room_id: int, tween_move: bool) -> void:
 	var gy = info["grid_y"]
 
 	var room_center = Vector2(gx * tw, gy * th)
-	
+
 	if camera:
 		if tween_move:
 			var tween = create_tween()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://bswbdf5lb603k"]
+[gd_scene load_steps=17 format=4 uid="uid://bswbdf5lb603k"]
 
 [ext_resource type="Script" path="res://Rooms/Room.gd" id="1_ofe1r"]
 [ext_resource type="Texture2D" uid="uid://cqrq43cty6urg" path="res://Assets/Sprites/background.png" id="2_1m8xp"]
@@ -6,10 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://jqlq07p0mgfs" path="res://Doors/door_left.tscn" id="3_8mlwh"]
 [ext_resource type="PackedScene" uid="uid://b5dj1j2lqs1tb" path="res://Obstacles/Pipes/Pipe2.tscn" id="5_wcaks"]
 [ext_resource type="PackedScene" uid="uid://t5cis28rw13w" path="res://Obstacles/Pipes/Pipe1.tscn" id="6_rdpuh"]
-[ext_resource type="PackedScene" path="res://Obstacles/Pipes/Pipe7.tscn" id="7_sndal"]
-[ext_resource type="PackedScene" path="res://Obstacles/Pipes/Pipe9.tscn" id="8_hdp4w"]
+[ext_resource type="PackedScene" uid="uid://btqq237b7bwfk" path="res://Obstacles/Pipes/Pipe7.tscn" id="7_sndal"]
+[ext_resource type="PackedScene" uid="uid://c8wowa2gm3xj8" path="res://Obstacles/Pipes/Pipe9.tscn" id="8_hdp4w"]
 [ext_resource type="PackedScene" uid="uid://dobg5tascwq58" path="res://Waterfall/Waterfall.tscn" id="9_wg82f"]
 [ext_resource type="PackedScene" uid="uid://di3tohf5u2ua7" path="res://Obstacles/PipeLeak/PipeLeak.tscn" id="10_cec13"]
+[ext_resource type="PackedScene" uid="uid://dvod77m8i0ui0" path="res://Obstacles/Rat/Rat.tscn" id="11_w41cj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4ei10"]
 texture = ExtResource("2_1m8xp")
@@ -99,3 +100,6 @@ position = Vector2(-177, 12)
 [node name="PipeLeak" parent="." instance=ExtResource("10_cec13")]
 position = Vector2(3, -48)
 rotation = 0.497419
+
+[node name="Rat" parent="." instance=ExtResource("11_w41cj")]
+position = Vector2(50, 109)

@@ -1,13 +1,14 @@
-[gd_scene load_steps=14 format=4 uid="uid://binsupc0ncml8"]
+[gd_scene load_steps=15 format=4 uid="uid://binsupc0ncml8"]
 
 [ext_resource type="Script" path="res://Rooms/Room.gd" id="1_65s2i"]
 [ext_resource type="PackedScene" uid="uid://b8d0hx5lcvqcg" path="res://Doors/door_up.tscn" id="2_831y6"]
 [ext_resource type="Texture2D" uid="uid://cqrq43cty6urg" path="res://Assets/Sprites/background.png" id="2_fgtx6"]
 [ext_resource type="PackedScene" uid="uid://dwfnu0vqhlkij" path="res://Doors/door_down.tscn" id="3_hqxcb"]
-[ext_resource type="PackedScene" path="res://Obstacles/Pipes/Pipe9.tscn" id="6_fiheu"]
+[ext_resource type="PackedScene" uid="uid://c8wowa2gm3xj8" path="res://Obstacles/Pipes/Pipe9.tscn" id="6_fiheu"]
 [ext_resource type="PackedScene" uid="uid://t5cis28rw13w" path="res://Obstacles/Pipes/Pipe1.tscn" id="7_ioli1"]
-[ext_resource type="PackedScene" path="res://Obstacles/Pipes/Pipe6.tscn" id="7_ti16u"]
+[ext_resource type="PackedScene" uid="uid://1pivojsyh2ep" path="res://Obstacles/Pipes/Pipe6.tscn" id="7_ti16u"]
 [ext_resource type="PackedScene" uid="uid://dobg5tascwq58" path="res://Waterfall/Waterfall.tscn" id="8_w7u7k"]
+[ext_resource type="PackedScene" uid="uid://dvod77m8i0ui0" path="res://Obstacles/Rat/Rat.tscn" id="9_xgbgl"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lskyr"]
 texture = ExtResource("2_fgtx6")
@@ -89,3 +90,6 @@ position = Vector2(69, 130)
 
 [node name="Waterfall" parent="." instance=ExtResource("8_w7u7k")]
 position = Vector2(161, 73)
+
+[node name="Rat" parent="." instance=ExtResource("9_xgbgl")]
+position = Vector2(-183, 50)
