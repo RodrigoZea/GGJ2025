@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://dp7ua5x0npwiy"]
+
+[ext_resource type="PackedScene" uid="uid://djjmau8xcv6nm" path="res://LevelGenerator/LevelGenerator.tscn" id="1_f0ebk"]
+[ext_resource type="Script" path="res://GMLGTest/character_body_2d.gd" id="2_1wawu"]
+[ext_resource type="Texture2D" uid="uid://qdaajr3fdeo0" path="res://icon.svg" id="2_a8nqd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ptsh6"]
+radius = 29.0
+
+[node name="GameManagerLevelGeneratorTest" type="Node2D"]
+
+[node name="LevelGenerator" parent="." instance=ExtResource("1_f0ebk")]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." groups=["Player"]]
+motion_mode = 1
+script = ExtResource("2_1wawu")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_a8nqd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("CircleShape2D_ptsh6")

@@ -20,7 +20,7 @@
 [ext_resource type="Resource" uid="uid://cgkf82l3l1f7s" path="res://Rooms/RoomResources/Final/final3.tres" id="18_irvna"]
 [ext_resource type="Resource" uid="uid://cpokvu71564u2" path="res://Rooms/RoomResources/Final/final4.tres" id="19_21r3u"]
 
-[node name="LevelGenerator" type="Node2D"]
+[node name="LevelGenerator" type="Node2D" groups=["Generator"]]
 script = ExtResource("1_abljm")
 room_pool = {
 "Coin": [ExtResource("8_boo55"), ExtResource("9_4fx0v"), ExtResource("10_sumir"), ExtResource("11_6mv0c")],
@@ -29,6 +29,3 @@ room_pool = {
 "Pump": [ExtResource("12_2pa1x"), ExtResource("13_qs3y4"), ExtResource("14_0kg4p"), ExtResource("15_ha4nk")],
 "Starting": [ExtResource("7_gmrw4")]
 }
-
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.15, 0.15)
