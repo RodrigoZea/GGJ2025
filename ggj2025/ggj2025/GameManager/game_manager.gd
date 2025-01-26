@@ -8,10 +8,13 @@ extends Node2D
 @onready var retry_button = $CanvasLayer/GameOverOverlay/ColorRect/MarginContainer/VBoxContainer/Button
 @onready var exit_button = $CanvasLayer/GameOverOverlay/ColorRect/MarginContainer/VBoxContainer/Button2
 @export var character_scene: PackedScene
+@onready var windgust = $WindGust/AnimatedSprite2D
 
 var current_room_id: int = -1
 var player
 var visited_rooms: Dictionary = {}
+var last_position = Vector2.ZERO
+var smoothing_speed = 10.0  # Adjust for smoother/slower rotation
 var can_transition_to_room = true
 signal room_changed
 
@@ -40,6 +43,27 @@ func _ready():
 	exit_button.connect("pressed", _exit)
 	_center_camera_on_room(start_id, false)
 	minimap.set_gm(self)
+
+func _process(delta: float) -> void:
+	# Get the mouse position in the world
+	var mouse_position = get_global_mouse_position()
+
+	# Update the windgust's position to follow the mouse
+	windgust.position = mouse_position
+
+	# Calculate the direction of movement
+	var movement_direction = windgust.position - last_position
+
+	# Check if the movement is significant
+	if movement_direction.length() > 1:  # Adjust threshold as needed
+		# Calculate the target angle based on movement direction
+		var target_angle = movement_direction.angle()
+
+		# Smoothly interpolate the current rotation toward the target angle
+		windgust.rotation = lerp_angle(windgust.rotation, target_angle, smoothing_speed * delta)
+
+	# Update the last position
+	last_position = windgust.position
 
 func _on_game_over() -> void:
 	$CanvasLayer/GameOverOverlay/ColorRect/MarginContainer/VBoxContainer/GameOverLabel.text = "GAME OVER"

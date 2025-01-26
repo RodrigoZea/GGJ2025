@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cw210e4j06qqj"]
+[gd_scene load_steps=22 format=3 uid="uid://cw210e4j06qqj"]
 
 [ext_resource type="Script" path="res://GameManager/game_manager.gd" id="1_6mp35"]
 [ext_resource type="PackedScene" uid="uid://dkbvnd0gm27f5" path="res://BubbleCharacter/Bubble.tscn" id="2_phppn"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dt3f43v4vcmtn" path="res://Assets/Sprites/victory_screen.png" id="4_1tkng"]
 [ext_resource type="FontFile" uid="uid://cqbs0ft8gosik" path="res://Assets/Fonts/C&C Red Alert [INET].ttf" id="4_vrgm1"]
 [ext_resource type="FontFile" uid="uid://cwdtnw6wju32v" path="res://Assets/Fonts/eight-bit-dragon.otf" id="5_yxut2"]
+[ext_resource type="Texture2D" uid="uid://cbi8w1f5y6scd" path="res://Assets/Sprites/wind.png" id="7_8b8l7"]
 
 [sub_resource type="Animation" id="Animation_ni2u1"]
 length = 0.001
@@ -80,6 +81,93 @@ tracks/2/keys = {
 _data = {
 "RESET": SubResource("Animation_ni2u1"),
 "fade_in_victory_screen": SubResource("Animation_bi4dc")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_st5cu"]
+atlas = ExtResource("7_8b8l7")
+region = Rect2(0, 0, 39, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sbkme"]
+atlas = ExtResource("7_8b8l7")
+region = Rect2(39, 0, 39, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6rbvq"]
+atlas = ExtResource("7_8b8l7")
+region = Rect2(78, 0, 39, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_44528"]
+atlas = ExtResource("7_8b8l7")
+region = Rect2(117, 0, 39, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n2lbc"]
+atlas = ExtResource("7_8b8l7")
+region = Rect2(156, 0, 39, 37)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ugyxf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_st5cu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sbkme")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6rbvq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_44528")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n2lbc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_estng"]
+animation = &"default"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_oif8q"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_r11g5"]
+states/default/node = SubResource("AnimationNodeAnimation_estng")
+states/default/position = Vector2(372.5, 121.5)
+transitions = ["Start", "default", SubResource("AnimationNodeStateMachineTransition_oif8q")]
+
+[sub_resource type="Animation" id="Animation_nnhrf"]
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["default"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gxc7o"]
+_data = {
+"default": SubResource("Animation_nnhrf")
 }
 
 [node name="GameManager" type="Node2D" groups=["GameManager"]]
@@ -174,4 +262,20 @@ text = "EXIT"
 root_node = NodePath("../..")
 libraries = {
 "": SubResource("AnimationLibrary_ou7oj")
+}
+
+[node name="WindGust" type="Node2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="WindGust"]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_ugyxf")
+frame = 3
+
+[node name="AnimationTree" type="AnimationTree" parent="WindGust"]
+tree_root = SubResource("AnimationNodeStateMachine_r11g5")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="WindGust"]
+libraries = {
+"": SubResource("AnimationLibrary_gxc7o")
 }

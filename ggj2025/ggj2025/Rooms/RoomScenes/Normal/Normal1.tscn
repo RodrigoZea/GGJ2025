@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://di3tohf5u2ua7" path="res://Obstacles/PipeLeak/PipeLeak.tscn" id="10_iwrol"]
 [ext_resource type="PackedScene" uid="uid://dvod77m8i0ui0" path="res://Obstacles/Rat/Rat.tscn" id="11_mu8b6"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_skh37"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yq5c3"]
 texture = ExtResource("2_p8xcw")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
@@ -30,13 +30,13 @@ texture_region_size = Vector2i(32, 32)
 
 [sub_resource type="TileSet" id="TileSet_v38s0"]
 tile_size = Vector2i(32, 32)
-sources/0 = SubResource("TileSetAtlasSource_skh37")
+sources/0 = SubResource("TileSetAtlasSource_yq5c3")
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_y8hjs"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ciuhd"]
 friction = 0.5
 bounce = 0.5
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k3x0b"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ipqog"]
 texture = ExtResource("2_p8xcw")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
@@ -59,8 +59,8 @@ texture_region_size = Vector2i(32, 32)
 [sub_resource type="TileSet" id="TileSet_uqtvd"]
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
-physics_layer_0/physics_material = SubResource("PhysicsMaterial_y8hjs")
-sources/0 = SubResource("TileSetAtlasSource_k3x0b")
+physics_layer_0/physics_material = SubResource("PhysicsMaterial_ciuhd")
+sources/0 = SubResource("TileSetAtlasSource_ipqog")
 
 [node name="Normal1" type="Node2D"]
 script = ExtResource("1_uedh1")
