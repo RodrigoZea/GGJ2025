@@ -1,0 +1,176 @@
+[gd_scene load_steps=10 format=3 uid="uid://cw210e4j06qqj"]
+
+[ext_resource type="Script" path="res://GameManager/game_manager.gd" id="1_6mp35"]
+[ext_resource type="PackedScene" uid="uid://dkbvnd0gm27f5" path="res://BubbleCharacter/Bubble.tscn" id="2_phppn"]
+[ext_resource type="AudioStream" uid="uid://kcbbweinotua" path="res://Assets/Music/Main theme Retro.mp3" id="3_2qaub"]
+[ext_resource type="Texture2D" uid="uid://dt3f43v4vcmtn" path="res://Assets/Sprites/victory_screen.png" id="4_1tkng"]
+[ext_resource type="FontFile" uid="uid://cqbs0ft8gosik" path="res://Assets/Fonts/C&C Red Alert [INET].ttf" id="4_vrgm1"]
+[ext_resource type="FontFile" uid="uid://cwdtnw6wju32v" path="res://Assets/Fonts/eight-bit-dragon.otf" id="5_yxut2"]
+
+[sub_resource type="Animation" id="Animation_bi4dc"]
+resource_name = "fade_in_victory_screen"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/VictoryScreen:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/VictoryScreen:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.46667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(2.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_on_victory"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_ni2u1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/VictoryScreen:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/VictoryScreen:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ou7oj"]
+_data = {
+"RESET": SubResource("Animation_ni2u1"),
+"fade_in_victory_screen": SubResource("Animation_bi4dc")
+}
+
+[node name="GameManager" type="Node2D" groups=["GameManager"]]
+z_index = 2
+z_as_relative = false
+script = ExtResource("1_6mp35")
+character_scene = ExtResource("2_phppn")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-2, 0)
+
+[node name="TransitionTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_2qaub")
+autoplay = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+process_mode = 3
+layer = 2
+
+[node name="VictoryScreen" type="Sprite2D" parent="CanvasLayer"]
+self_modulate = Color(1, 1, 1, 0)
+position = Vector2(319, 180)
+scale = Vector2(0.205046, 0.222222)
+texture = ExtResource("4_1tkng")
+
+[node name="GameOverOverlay" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/GameOverOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.129412, 0.129412, 0.129412, 0.705882)
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/GameOverOverlay/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/GameOverOverlay/ColorRect/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="GameOverLabel" type="Label" parent="CanvasLayer/GameOverOverlay/ColorRect/MarginContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_vrgm1")
+theme_override_font_sizes/font_size = 40
+text = "GAME OVER"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="CanvasLayer/GameOverOverlay/ColorRect/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 25)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("5_yxut2")
+theme_override_font_sizes/font_size = 12
+text = "RETRY"
+
+[node name="Button2" type="Button" parent="CanvasLayer/GameOverOverlay/ColorRect/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 25)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("5_yxut2")
+theme_override_font_sizes/font_size = 12
+text = "EXIT"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_ou7oj")
+}
